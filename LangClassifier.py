@@ -67,10 +67,10 @@ def get_text_classifier_model(text_field, level_label, model_name, pretrained_la
         base_lr])
 
     #rnn_learner.metrics=[accuracy]
-    #wd= 1e-7	
+    #wd= 1e-7
     rnn_learner.freeze_to(-1)
     #rnn_learner.fit(lrs/2, 2, metrics=[accuracy],cycle_len=1)
-    #rnn_learner.unfreeze()	
+    #rnn_learner.unfreeze()
     #rnn_learner.fit(lrs,2, metrics=[accuracy],cycle_len=1)
     rnn_learner.fit(lrs, metrics=[accuracy], cycle_len=1, n_cycle=1)
     #rnn_learner.freeze_to(-2)
@@ -120,26 +120,26 @@ def output_predictions(m, input_field, output_field, starting_text, how_many):
     print(starting_text)
     print('----------------')
     #for i in probs:
-     #   print('Probs----'+  probs)    
+    #   print('Probs----'+  probs)
     #print(input_field)
     #print('---')
-    #print(output_field) 	
+    #print(output_field)
     for probability, label in map(to_np, zip(probs, labels)):
         print(f'{output_field.vocab.itos[label[0]]}: {probability}')
         ##try:
-         #   print('prediction'+str(np.exp(probability)))
+        #   print('prediction'+str(np.exp(probability)))
         #except:
-         #   print("cannot convert into prob")   
+        #   print("cannot convert into prob")
         try:
- 	   file_write.write(output_field.vocab.itos[label[0]] + str(probability))
-           file_write.write('\n')
+            file_write.write(output_field.vocab.itos[label[0]] + str(probability))
+            file_write.write('\n')
         except:
-	    print('cannot print')
-#logging.info(f'Accuracy is {accuracy(*learner.predict_with_targs())}')==
+            print('cannot print')
+    #logging.info(f'Accuracy is {accuracy(*learner.predict_with_targs())}')==
         try:
             print('probability '+str(np.exp(probability)))
         except:
-            print("cannot convert into prob")   
+            print("cannot convert into prob")
 
 
 
