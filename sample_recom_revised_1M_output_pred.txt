@@ -1,0 +1,866 @@
+cycle: 1 cycle_length: 15
+
+public sasl negotiator ( inet address client address ) { return authenticator instance ; } _eos_
+new sasl negotiator _eos_
+get authenticator _eos_ _eos_
+
+public void ( authenticated user performer comma set < permission > permissions comma i resource resource comma role resource to ) { throw new unsupported operation exception ( " grant operation is not supported by allow all authorizer " ) ; } _eos_
+grant _eos_
+set role _eos_
+
+public ( string name ) { this . name = name ; this . role = role resource . role ( name ) ; } _eos_
+authenticated user _eos_
+get _eos_
+
+public set < permission > ( i resource resource ) { return permissions cache . get permissions ( this comma resource ) ; } _eos_
+get permissions _eos_
+get permissions _eos_
+
+public boolean ( ) { return ! is anonymous ( ) && roles . has superuser status ( role ) ; } _eos_
+is super _eos_
+is _eos_ _eos_
+
+public void ( string ks name comma string aggregate name comma list < abstract type < ? >> arg types ) { database descriptor . get authorizer ( ) . revoke all on ( function resource . function ( ks name comma aggregate name comma arg types ) ) ; } _eos_
+on drop aggregate _eos_
+on all _eos_ _eos_
+
+private select statement ( string _unk comma string permissions table ) { string query = string . format ( " select permissions from % s .% s where % s = ? and resource = ?" comma schema constants . auth keyspace name comma permissions table comma _unk ) ; return ( select statement ) query processor . get statement ( query comma client state . for internal calls ( ) ) . statement ; } _eos_
+prepare _eos_
+get query _eos_ _eos_
+
+public set < data resource > ( ) { return immutable set . of ( data resource . table ( schema constants . auth keyspace name comma auth keyspace . role permissions ) ) ; } _eos_
+protected resources _eos_
+get role _eos_ _eos_
+
+override public void ( subject subject comma callback handler callback handler comma map < java . lang . string comma ? > shared state comma map < java . lang . string comma ? > options ) { this . subject = subject ; this . callback handler = callback handler ; } _eos_
+initialize _eos_
+set _eos_
+
+override public boolean ( object o ) { if ( o == null ) return false ; if ( this == o ) return true ; if ( ! ( o instanceof cassandra principal ) ) return false ; cassandra principal that = ( cassandra principal ) o ; if ( this . get name ( ) . equals ( that . get name ( ) ) ) return true ; return false ; } _eos_
+equals _eos_
+equals _eos_
+
+private ( string name comma boolean is super comma boolean can login comma set < string > member of ) { this . name = name ; this . is super = is super ; this . can login = can login ; this . member of = member of ; } _eos_
+role _eos_
+get _eos_ _eos_
+
+protected static consistency level ( string role ) { if ( role . equals ( default superuser name ) ) return consistency level . quorum ; else return consistency level . local one ; } _eos_
+consistency for role _eos_
+get _eos_ level _eos_
+
+public boolean ( role resource role ) { return get role ( role . get role name ( ) ) . is super ; } _eos_
+is super _eos_
+is role _eos_
+
+private iterable < string > ( map < option comma object > options ) { return iterables . transform ( options . entry set ( ) comma new function < map . entry < option comma object > comma string > ( ) { public string apply ( map . entry < option comma object > entry ) { switch ( entry . get key ( ) ) { case login : return string . format ( " can login = % s " comma entry . get value ( ) ) ; case superuser : return string . format ( " is superuser = % s " comma entry . get value ( ) ) ; case password : return string . format ( " salted hash = '% s '" comma escape ( hashpw ( ( string ) entry . get value ( ) ) ) ) ; default : return null ; } } } ) ; } _eos_
+options to assignments _eos_
+get options _eos_
+
+private static void ( ) { if ( storage service . instance . get token metadata ( ) . sorted tokens ( ) . is empty ( ) ) throw new illegal state exception ( " cassandra role manager skipped default role setup : no known tokens in ring " ) ; try { if ( ! has existing roles ( ) ) { query processor . process ( string . format ( " insert into % s .% s ( role comma is superuser comma can login comma salted hash ) " + " values ('% s ' comma true comma true comma '% s ')" comma schema constants . auth keyspace name comma auth keyspace . roles comma default superuser name comma escape ( hashpw ( default superuser password ) ) ) comma consistency for role ( default superuser name ) ) ; logger . info ( " created default superuser role '{}'" comma default superuser name ) ; } } catch ( request execution exception e ) { logger . warn ( " cassandra role manager skipped default role setup : some nodes were not ready " ) ; throw e ; } } _eos_
+setup default role _eos_
+check role _eos_
+
+override public string ( ) { switch ( level ) { case root : return "< all keyspaces >" ; case keyspace : return string . format ( "< keyspace % s >" comma keyspace ) ; case table : return string . format ( "< table % s .% s >" comma keyspace comma table ) ; } throw new assertion error ( ) ; } _eos_
+to string _eos_
+get _eos_ _eos_
+
+public static function resource keyspace ( string keyspace ) { return new function resource ( keyspace ) ; } _eos_
+keyspace _eos_
+create _eos_
+
+public byte [ ] evaluate response ( byte [ ] client response ) throws authentication exception ; _eos_
+evaluate response _eos_
+evaluate response _eos_
+
+private set < jmx resource > ( role resource subject comma permission required ) { return get permissions . apply ( subject ) . stream ( ) . filter ( details -> details . permission == required ) . map ( details -> ( jmx resource ) details . resource ) . collect ( collectors . to set ( ) ) ; } _eos_
+get permitted resources _eos_
+get _eos_ _eos_
+
+private static set < permission details > ( role resource subject ) { return database descriptor . get authorizer ( ) . list ( authenticated user . system user comma permission . all comma null comma subject ) . stream ( ) . filter ( details -> details . resource instanceof jmx resource ) . collect ( collectors . to set ( ) ) ; } _eos_
+load permissions _eos_
+get permission _eos_ _eos_
+
+override public boolean ( object o ) { if ( this == o ) return true ; if ( ! ( o instanceof jmx resource ) ) return false ; jmx resource j = ( jmx resource ) o ; return objects . equal ( level comma j . level ) && objects . equal ( name comma j . name ) ; } _eos_
+equals _eos_
+equals _eos_
+
+public sasl negotiator ( inet address client address ) { return new plain text sasl authenticator ( ) ; } _eos_
+new sasl negotiator _eos_
+get sasl _eos_ _eos_
+
+public ( i authorizer authorizer ) { super ( " permissions cache " comma database descriptor :: set permissions validity comma database descriptor :: get permissions validity comma database descriptor :: set permissions update interval comma database descriptor :: get permissions update interval comma database descriptor :: set permissions cache max entries comma database descriptor :: get permissions cache max entries comma ( p ) -> authorizer . authorize ( p . left comma p . right ) comma ( ) -> database descriptor . get authorizer ( ) . require authorization ( ) ) ; } _eos_
+permissions cache _eos_
+get cache _eos_ _eos_
+
+deprecated public static string ( list < object > resource ) { string builder buff = new string builder ( ) ; for ( object component : resource ) { buff . append ( "/" ) ; if ( component instanceof byte [ ] ) buff . append ( hex . bytes to hex ( ( byte [ ] ) component ) ) ; else buff . append ( component ) ; } return buff . to string ( ) ; } _eos_
+to string _eos_
+to string _eos_
+
+public map < i role manager . option comma object > ( ) { return options ; } _eos_
+get options _eos_
+get options _eos_
+
+public i resource ( ) { if ( level == level . role ) return root ( ) ; throw new illegal state exception ( " root - level resource can ' t have a parent " ) ; } _eos_
+get parent _eos_
+get _eos_ _eos_
+
+public batch ( data input plus in comma int version ) throws io exception { uuid id = uuid serializer . serializer . deserialize ( in comma version ) ; long creation time = in . read long ( ) ; return version == messaging service . current version ? create remote ( id comma creation time comma read encoded mutations ( in ) ) : create local ( id comma creation time comma decode mutations ( in comma version ) ) ; } _eos_
+deserialize _eos_
+deserialize _eos_
+
+( collection < inet address and port > write endpoints comma long query start nano time ) { super ( write endpoints comma collections . < inet address and port > empty set ( ) comma null comma null comma null comma write type . unlogged batch comma query start nano time ) ; undelivered . add all ( write endpoints ) ; } _eos_
+replay write response handler _eos_
+write request _eos_ _eos_
+
+void ( ) throws interrupted exception comma execution exception { batchlog tasks . submit ( this :: replay failed batches ) . get ( ) ; } _eos_
+perform initial replay _eos_
+get failed _eos_ _eos_
+
+public compaction info ( ) { return info . for progress ( keys written comma math . max ( keys written comma keys estimate ) ) ; } _eos_
+get compaction info _eos_
+get progress _eos_
+
+public output stream ( file data path comma file crc path ) { return new checksummed sequential writer ( data path comma crc path comma null comma writer option ) ; } _eos_
+get output stream _eos_
+get _eos_
+
+public void ( ) { logger . trace ( " deleting old {} files ." comma cache type ) ; delete old cache files ( ) ; if ( ! key iterator . has next ( ) ) { logger . trace ( " skipping {} save comma cache is empty ." comma cache type ) ; return ; } long start = system . nano time ( ) ; pair < file comma file > cache file paths = temp cache files ( ) ; try ( wrapped data output stream plus writer = new wrapped data output stream plus ( stream factory . get output stream ( cache file paths . left comma cache file paths . right ) ) ) { uuid schema version = schema . instance . get version ( ) ; if ( schema version == null ) { schema . instance . update version ( ) ; schema version = schema . instance . get version ( ) ; } writer . write long ( schema version . get most significant bits ( ) ) ; writer . write long ( schema version . get least significant bits ( ) ) ; while ( key iterator . has next ( ) ) { k key = key iterator . next ( ) ; column family store cfs = schema . instance . get column family store instance ( key . table id ) ; if ( cfs == null ) continue ; if ( key . index name != null ) cfs = cfs . index manager . get index by name ( key . index name ) . get backing table ( ) . or else ( null ) ; cache loader . serialize ( key comma writer comma cfs ) ; keys written ++ ; if ( keys written >= keys estimate ) break ; } } catch ( file not found exception e ) { throw new runtime exception ( e ) ; } catch ( io exception e ) { throw new fs write error ( e comma cache file paths . left ) ; } file cache file = get cache data path ( current version ) ; file crc file = get cache crc path ( current version ) ; cache file . delete ( ) ; crc file . delete ( ) ; if ( ! cache file paths
+save cache _eos_
+delete _eos_
+
+public void ( int save period in seconds comma final int keys to save ) { if ( save task != null ) { save task . cancel ( false ) ; save task = null ; } if ( save period in seconds > 0 ) { runnable runnable = new runnable ( ) { public void run ( ) { submit write ( keys to save ) ; } } ; save task = scheduled executors . optional tasks . schedule with fixed delay ( runnable comma save period in seconds comma save period in seconds comma time unit . seconds ) ; } } _eos_
+schedule saving _eos_
+submit save _eos_
+
+public void ( ) { cache . invalidate all ( ) ; } _eos_
+clear _eos_
+invalidate all _eos_
+
+public boolean ( k key ) { return cache . as map ( ) . contains key ( key ) ; } _eos_
+contains key _eos_
+contains key _eos_
+
+public int ( ) { return cache . as map ( ) . size ( ) ; } _eos_
+size _eos_
+get _eos_
+
+public long ( ) { return policy . weighted size ( ) . get as long ( ) ; } _eos_
+weighted size _eos_
+get size _eos_
+
+override public long ( ) { return offset ; } _eos_
+offset _eos_
+get offset _eos_
+
+override public buffer ( long position ) { try { metrics . requests . mark ( ) ; long page aligned pos = position & alignment mask ; buffer buf ; do buf = cache . get ( new key ( source comma page aligned pos ) ) . reference ( ) ; while ( buf == null ) ; return buf ; } catch ( throwable t ) { throwables . propagate if instance of ( t . get cause ( ) comma corrupt ss table exception . class ) ; throw throwables . propagate ( t ) ; } } _eos_
+rebuffer _eos_
+get _eos_
+
+buffer ( ) { int ref count ; do { ref count = references . get ( ) ; if ( ref count == 0 ) return null ; } while ( ! references . compare and set ( ref count comma ref count + 1 ) ) ; return this ; } _eos_
+reference _eos_
+set ref count
+
+override public string ( ) { return " caching rebufferer :" + source ; } _eos_
+to string _eos_
+get string _eos_
+
+public byte buffer ( ) { return byte buffer . wrap ( partition key ) ; } _eos_
+partition key _eos_
+wrap _eos_
+
+public void ( ) { map . clear ( ) ; metrics = new cache metrics ( type comma map ) ; } _eos_
+clear _eos_
+clear _eos_
+
+public v ( k key ) { v v = map . get ( key ) ; metrics . requests . mark ( ) ; if ( v != null ) metrics . hits . mark ( ) ; return v ; } _eos_
+get _eos_
+get _eos_
+
+public ( table metadata table metadata comma descriptor desc comma byte buffer key ) { super ( table metadata ) ; this . desc = desc ; this . key = byte buffer util . get array ( key ) ; assert this . key != null ; } _eos_
+key cache key _eos_
+table _eos_ _eos_
+
+override public int ( ) { int result = table id . hash code ( ) ; result = 31 * result + objects . hash code ( index name ) ; result = 31 * result + desc . hash code ( ) ; result = 31 * result + arrays . hash code ( key ) ; return result ; } _eos_
+hash code _eos_
+hash code _eos_
+
+public string ( ) { return string . format ( " key cache key (% s comma % s )" comma desc comma byte buffer util . bytes to hex ( byte buffer . wrap ( key ) ) ) ; } _eos_
+to string _eos_
+get key _eos_
+
+public long ( ) { return 0 ; } _eos_
+capacity _eos_
+get _eos_ _eos_
+
+public i row cache entry ( row cache key key ) { return null ; } _eos_
+get _eos_
+get row entry entry
+
+public void ( ) { if ( updater . decrement and get ( this ) == 0 ) super . free ( ) ; } _eos_
+unreference _eos_
+free _eos_
+
+override public boolean ( object o ) { if ( this == o ) return true ; if ( o == null || get class ( ) != o . get class ( ) ) return false ; row cache key that = ( row cache key ) o ; return table id . equals ( that . table id ) && objects . equals ( index name comma that . index name ) && arrays . equals ( key comma that . key ) ; } _eos_
+equals _eos_
+equals _eos_
+
+suppress warnings ( " resource " ) public v ( k key ) { ref counted memory mem = cache . get if present ( key ) ; if ( mem == null ) return null ; if ( ! mem . reference ( ) ) return null ; try { return deserialize ( mem ) ; } finally { mem . unreference ( ) ; } } _eos_
+get _eos_
+get _eos_
+
+public boolean ( ) { return cache . as map ( ) . is empty ( ) ; } _eos_
+is empty _eos_
+is empty _eos_
+
+public i cache < row cache key comma i row cache entry > ( ) { return serializing cache . create ( database descriptor . get row cache size in mb ( ) * 1024 * 1024 comma new row cache serializer ( ) ) ; } _eos_
+create _eos_
+get row cache _eos_
+
+public void ( i row cache entry entry comma data output plus out ) throws io exception { assert entry != null ; boolean is sentinel = entry instanceof row cache sentinel ; out . write boolean ( is sentinel ) ; if ( is sentinel ) out . write long ( ( ( row cache sentinel ) entry ) . sentinel id ) ; else cached partition . cache serializer . serialize ( ( cached partition ) entry comma out ) ; } _eos_
+serialize _eos_
+serialize _eos_
+
+public ( runnable runnable comma t result comma executor locals locals ) { super ( runnable comma result ) ; this . locals = locals ; } _eos_
+local session future task _eos_
+thread _eos_ _eos_
+
+public boolean ( boolean may interrupt if running ) { return false ; } _eos_
+cancel _eos_
+cancel _eos_
+
+private < t > future task < t > ( future task < t > task ) { add task ( task ) ; return task ; } _eos_
+submit _eos_
+add task _eos_
+
+public ( int core pool size comma int maximum pool size comma long keep alive time comma time unit unit comma blocking queue < runnable > work queue comma thread factory thread factory ) { super ( core pool size comma maximum pool size comma keep alive time comma unit comma work queue comma thread factory ) ; allow core thread time out ( true ) ; this . set rejected execution handler ( blocking execution handler ) ; } _eos_
+debuggable thread pool executor _eos_
+pool pool pool _eos_
+
+override protected void ( runnable r comma throwable t ) { super . after execute ( r comma t ) ; maybe reset trace session wrapper ( r ) ; log exceptions after execute ( r comma t ) ; } _eos_
+after execute _eos_
+after execute _eos_
+
+private ( trace state trace state comma client warn . state client warn state ) { this . trace state = trace state ; this . client warn state = client warn state ; } _eos_
+executor locals _eos_
+state state _eos_
+
+public static void ( executor locals locals ) { trace state trace state = locals == null ? null : locals . trace state ; client warn . state client warn state = locals == null ? null : locals . client warn state ; tracing . set ( trace state ) ; client warn . set ( client warn state ) ; } _eos_
+set _eos_
+set client state state _eos_
+
+public int ( ) { return ( int ) metrics . total blocked . get count ( ) ; } _eos_
+get total blocked tasks _eos_
+get total count _eos_
+
+public static thread ( thread group thread group comma runnable runnable comma string name comma boolean daemon ) { thread thread = new fast thread local thread ( thread group comma thread local deallocator ( runnable ) comma name ) ; thread . set daemon ( daemon ) ; return thread ; } _eos_
+create thread _eos_
+new thread _eos_
+
+public boolean ( ) { return shutting down && shutdown . is signaled ( ) ; } _eos_
+is terminated _eos_
+is shutdown _eos_
+
+private void ( ) { long sleep = 10000 l * pool . spinning count . get ( ) ; sleep = math . min ( 1000000 comma sleep ) ; sleep *= thread local random . current ( ) . next double ( ) ; sleep = math . max ( 10000 comma sleep ) ; long start = system . nano time ( ) ; long target = start + sleep ; if ( pool . spinning . put if absent ( target comma this ) != null ) return ; lock support . park nanos ( sleep ) ; pool . spinning . remove ( target comma this ) ; long end = system . nano time ( ) ; long spin = end - start ; long stop check = pool . stop check . add and get ( spin ) ; maybe stop ( stop check comma end ) ; if ( prev stop check + spin == stop check ) sole spinner spin time += spin ; else sole spinner spin time = 0 ; prev stop check = stop check ; } _eos_
+do wait spin _eos_
+run _eos_
+
+boolean ( ) { return assigned != null ; } _eos_
+is assigned _eos_
+is assigned _eos_
+
+public local aware executor service ( int max concurrency comma int max queued tasks comma string jmx path comma string name ) { sep executor executor = new sep executor ( this comma max concurrency comma max queued tasks comma jmx path comma name ) ; executors . add ( executor ) ; return executor ; } _eos_
+new executor _eos_
+get executor executor _eos_
+
+public static void ( ) { try { if ( conf . data file directories . length == 0 ) throw new configuration exception ( " at least one data file directory must be specified " comma false ) ; for ( string data file directory : conf . data file directories ) file utils . create directory ( data file directory ) ; if ( conf . commitlog directory == null ) throw new configuration exception ( " commitlog directory must be specified " comma false ) ; file utils . create directory ( conf . commitlog directory ) ; if ( conf . hints directory == null ) throw new configuration exception ( " hints directory must be specified " comma false ) ; file utils . create directory ( conf . hints directory ) ; if ( conf . saved caches directory == null ) throw new configuration exception ( " saved caches directory must be specified " comma false ) ; file utils . create directory ( conf . saved caches directory ) ; if ( conf . cdc enabled ) { if ( conf . cdc raw directory == null ) throw new configuration exception ( " cdc raw directory must be specified " comma false ) ; file utils . create directory ( conf . cdc raw directory ) ; } } catch ( configuration exception e ) { throw new illegal argument exception ( " bad configuration ; unable to start server : " + e . get message ( ) ) ; } catch ( fs write error e ) { throw new illegal state exception ( e . get cause ( ) . get message ( ) + "; unable to start server " ) ; } } _eos_
+create all directories _eos_
+start _eos_ _eos_
+
+public static boolean ( ) { return conf . enable user defined functions ; } _eos_
+enable user defined functions _eos_
+is enable user functions _eos_
+
+public static int ( ) { return conf . credentials validity in ms ; } _eos_
+get credentials validity _eos_
+get credentials _eos_ _eos_
+
+public static file ( ) { return new file ( conf . hints directory ) ; } _eos_
+get hints directory _eos_
+get hints directory _eos_
+
+public static i internode authenticator ( ) { return internode authenticator ; } _eos_
+get internode authenticator _eos_
+get _eos_ authenticator _eos_
+
+public static config . memtable allocation type ( ) { return conf . memtable allocation type ; } _eos_
+get memtable allocation type _eos_
+get allocation allocation type _eos_
+
+public static int ( ) { return integer . parse int ( system . get property ( config . property prefix + " native transport port " comma integer . to string ( conf . native transport port ) ) ) ; } _eos_
+get native transport port _eos_
+get native transport port _eos_
+
+public static string ( ) { return conf . otc coalescing strategy ; } _eos_
+get otc coalescing strategy _eos_
+get _eos_ coalescing strategy _eos_
+
+public static collection < string > ( ) { return tokens from string ( system . get property ( config . property prefix + " replace token " comma null ) ) ; } _eos_
+get replace tokens _eos_
+get replace token _eos_
+
+public static long ( ) { return conf . slow query log timeout in ms ; } _eos_
+get slow query timeout _eos_
+get timeout query timeout _eos_
+
+private static file store ( string dir ) throws io exception { path path = paths . get ( dir ) ; while ( true ) { try { return file utils . get file store ( path ) ; } catch ( io exception e ) { if ( e instanceof no such file exception ) path = path . get parent ( ) ; else throw e ; } } } _eos_
+guess file store _eos_
+get file store
+
+visible for testing public static void ( back pressure strategy strategy ) { back pressure strategy = strategy ; } _eos_
+set back pressure strategy _eos_
+set back _eos_ strategy _eos_
+
+public static void ( config . internode compression compression ) { conf . internode compression = compression ; } _eos_
+set internode compression _eos_
+set _eos_ compression _eos_
+
+public static void ( int max value size in bytes ) { conf . max value size in mb = max value size in bytes / 1024 / 1024 ; } _eos_
+set max value size _eos_
+set max value size _eos_
+
+public static boolean ( ) { return conf . start native transport ; } _eos_
+start native transport _eos_
+is native transport transport _eos_
+
+public void ( list < function > functions ) { if ( timestamp != null ) timestamp . add functions to ( functions ) ; if ( time to live != null ) time to live . add functions to ( functions ) ; } _eos_
+add functions to _eos_
+add functions to _eos_
+
+public int ( column identifier that ) { int c = long . compare ( this . prefix comparison comma that . prefix comparison ) ; if ( c != 0 ) return c ; if ( this == that ) return 0 ; return byte buffer util . compare unsigned ( this . bytes comma that . bytes ) ; } _eos_
+compare to _eos_
+compare to _eos_
+
+public ( column metadata column comma term collection element comma operator op comma terms values ) { super ( column comma op comma values ) ; this . collection element = collection element ; } _eos_
+collection element condition _eos_
+get _eos_ _eos_
+
+public ( column metadata column comma operator operator comma list < term . terminal > values ) { super ( column comma operator ) ; assert column . type . is multi cell ( ) ; this . values = values ; } _eos_
+multi cell collection bound _eos_
+get _eos_ _eos_
+
+protected static final boolean ( int comparison comma operator operator ) { switch ( operator ) { case eq : return false ; case lt : case lte : return comparison < 0 ; case gt : case gte : return comparison > 0 ; case neq : return true ; default : throw new assertion error ( ) ; } } _eos_
+evaluate comparison with operator _eos_
+is operator _eos_
+
+private static boolean ( list type < ? > type comma iterator < cell > iter comma list < byte buffer > elements comma operator operator ) { return set or list applies to ( type . get elements type ( ) comma iter comma elements . iterator ( ) comma operator comma false ) ; } _eos_
+list applies to _eos_
+set _eos_ _eos_ _eos_
+
+private byte buffer ( list type < ? > type comma row row ) { if ( column . type . is multi cell ( ) ) return cell value at index ( get cells ( row comma column ) comma get list index ( collection element ) ) ; cell cell = get cell ( row comma column ) ; return cell == null ? null : type . get serializer ( ) . get element ( cell . value ( ) comma get list index ( collection element ) ) ; } _eos_
+row list value _eos_
+get value _eos_
+
+override public string ( ) { return to string builder . reflection to string ( this comma to string style . short prefix style ) ; } _eos_
+to string _eos_
+to string _eos_
+
+private void ( abstract type < ? > type ) { if ( type . references duration ( ) && operator . is slice ( ) ) { check false ( type . is collection ( ) comma " slice conditions are not supported on collections containing durations " ) ; check false ( type . is tuple ( ) comma " slice conditions are not supported on tuples containing durations " ) ; check false ( type . is udt ( ) comma " slice conditions are not supported on ud ts containing durations " ) ; throw invalid request ( " slice conditions ( % s ) are not supported on durations " comma operator ) ; } } _eos_
+validate operation on durations _eos_
+check _eos_ _eos_
+
+override public void ( cql3 cas request request comma clustering clustering comma query options options ) { request . add not exist ( clustering ) ; } _eos_
+add conditions to _eos_
+add _eos_ _eos_
+
+private ( type type comma string text ) { assert type != null && text != null ; this . type = type ; this . text = text ; this . prefered type = type . get prefered type for ( text ) ; } _eos_
+literal _eos_
+type _eos_ _eos_
+
+public ( byte buffer bytes ) { this . bytes = bytes ; } _eos_
+value _eos_
+byte byte _eos_
+
+public static literal ( string text ) { return new literal ( type . float comma text ) ; } _eos_
+floating point _eos_
+float _eos_
+
+override public assignment testable . test result ( string keyspace comma column specification receiver ) { cql3 type receiver type = receiver . type . as cql3 type ( ) ; if ( receiver type . is collection ( ) || receiver type . is udt ( ) ) return assignment testable . test result . not assignable ; if ( ! ( receiver type instanceof cql3 type . native ) ) return assignment testable . test result . weakly assignable ; cql3 type . native nt = ( cql3 type . native ) receiver type ; if ( nt . get type ( ) . equals ( prefered type ) ) return assignment testable . test result . exact match ; switch ( type ) { case string : switch ( nt ) { case ascii : case text : case inet : case varchar : case date : case time : case timestamp : return assignment testable . test result . weakly assignable ; } break ; case integer : switch ( nt ) { case bigint : case counter : case date : case decimal : case double : case duration : case float : case int : case smallint : case time : case timestamp : case tinyint : case varint : return assignment testable . test result . weakly assignable ; } break ; case uuid : switch ( nt ) { case uuid : case timeuuid : return assignment testable . test result . weakly assignable ; } break ; case float : switch ( nt ) { case decimal : case double : case float : return assignment testable . test result . weakly assignable ; } break ; case boolean : switch ( nt ) { case boolean : return assignment testable . test result . weakly assignable ; } break ; case hex : switch ( nt ) { case blob : return assignment testable . test result . weakly assignable ; } break ; case duration : switch ( nt ) { case duration : return assignment testable . test result . weakly assignable ; } break ; } return assignment testable . test result . not assignable ; } _eos_
+test assignment _eos_
+test _eos_ _eos_
+
+override public string ( ) { return byte buffer util . bytes to hex ( bytes ) ; } _eos_
+to string _eos_
+get string _eos_
+
+public ( collection type type ) { this . type = type ; } _eos_
+collection _eos_
+collection _eos_ _eos_
+
+public static raw ( cql3 type . raw t ) { return new raw collection ( collection type . kind . list comma null comma t ) ; } _eos_
+list _eos_
+get _eos_ _eos_
+
+public static < r > r ( cql parser function < r > parser function comma string input comma string meaning ) { try { return parse any unhandled ( parser function comma input ) ; } catch ( runtime exception re ) { throw new syntax exception ( string . format ( " failed parsing % s : [% s ] reason : % s % s " comma meaning comma input comma re . get class ( ) . get simple name ( ) comma re . get message ( ) ) ) ; } catch ( recognition exception e ) { throw new syntax exception ( " invalid or malformed " + meaning + ": " + e . get message ( ) ) ; } } _eos_
+parse any _eos_
+parse any _eos_ _eos_
+
+private ( int months comma int days comma long nanoseconds ) { assert ( months >= 0 && days >= 0 && nanoseconds >= 0 ) || ( ( months <= 0 && days <= 0 && nanoseconds <= 0 ) ) ; this . months = months ; this . days = days ; this . nanoseconds = nanoseconds ; } _eos_
+duration _eos_
+_eos_ _eos_ _eos_
+
+public builder ( long number of years ) { validate order ( 1 ) ; validate months ( number of years comma months per year ) ; months += number of years * months per year ; return this ; } _eos_
+add years _eos_
+set _eos_ year _eos_
+
+override public boolean ( object obj ) { if ( ! ( obj instanceof duration ) ) return false ; duration other = ( duration ) obj ; return days == other . days && months == other . months && nanoseconds == other . nanoseconds ; } _eos_
+equals _eos_
+equals _eos_
+
+private static duration ( boolean is negative comma string source ) { matcher matcher = standard pattern . matcher ( source ) ; if ( ! matcher . find ( ) ) throw invalid request ( " unable to convert '% s ' to a duration " comma source ) ; builder builder = new builder ( is negative ) ; boolean done = false ; do { long number = group as long ( matcher comma 1 ) ; string symbol = matcher . group ( 2 ) ; add ( builder comma number comma symbol ) ; done = matcher . end ( ) == source . length ( ) ; } while ( matcher . find ( ) ) ; if ( ! done ) throw invalid request ( " unable to convert '% s ' to a duration " comma source ) ; return builder . build ( ) ; } _eos_
+parse standard format _eos_
+get duration _eos_
+
+private void ( long units comma long limit comma string unit name ) { check true ( units <= limit comma " invalid duration . the total number of % s must be less or equal to % s " comma unit name comma integer . max value ) ; } _eos_
+validate _eos_
+check _eos_ _eos_
+
+private void ( parser parser comma string builder builder ) { token stream token stream = parser . get token stream ( ) ; int index = token stream . index ( ) ; int size = token stream . size ( ) ; token from = token stream . get ( get snippet first token index ( index ) ) ; token to = token stream . get ( get snippet last token index ( index comma size ) ) ; token offending = token stream . get ( get offending token index ( index comma size ) ) ; append snippet ( builder comma from comma to comma offending ) ; } _eos_
+append query snippet _eos_
+append token _eos_
+
+private static byte buffer ( string text ) { try { return utf8 type . instance . decompose ( text ) ; } catch ( marshal exception e ) { throw new syntax exception ( string . format ( " for field name % s : % s " comma text comma e . get message ( ) ) ) ; } } _eos_
+convert _eos_
+get _eos_ _eos_
+
+override public string ( ) { string builder sb = new string builder ( ) ; sb . append ( name ) . append ( " : (" ) ; for ( int i = 0 ; i < arg types . size ( ) ; i ++ ) { if ( i > 0 ) sb . append ( " comma " ) ; sb . append ( arg types . get ( i ) . as cql3 type ( ) ) ; } sb . append ( ") -> " ) . append ( return type . as cql3 type ( ) ) ; return sb . to string ( ) ; } _eos_
+to string _eos_
+to string _eos_
+
+override public string ( list < string > column names ) { return " count " ; } _eos_
+column name _eos_
+get column names _eos_
+
+public static function ( abstract type < ? > from type ) { string name = from type . as cql3 type ( ) + " _unk " ; return new native scalar function ( name comma bytes type . instance comma from type ) { public byte buffer execute ( protocol version protocol version comma list < byte buffer > parameters ) { return parameters . get ( 0 ) ; } } ; } _eos_
+make to blob function _eos_
+get _eos_ _eos_
+
+protected ( abstract type < o > output type comma java . util . function . function < long comma o > converter ) { super ( counter column type . instance comma output type comma converter ) ; } _eos_
+java counter function wrapper _eos_
+counter type _eos_ _eos_
+
+override public string ( list < string > column names ) { return string . format ( " cast (% s as % s )" comma column names . get ( 0 ) comma to lower case string ( output type ( ) . as cql3 type ( ) ) ) ; } _eos_
+column name _eos_
+get column _eos_
+
+suppress warnings ( " unchecked " ) private static < o comma i > function ( abstract type < i > input type comma abstract type < o > output type comma java . util . function . function < i comma o > converter ) { return input type . equals ( counter column type . instance ) ? java counter function wrapper . create ( output type comma ( java . util . function . function < long comma o > ) converter ) : java function wrapper . create ( input type comma output type comma converter ) ; } _eos_
+wrap java function _eos_
+create _eos_
+
+public byte buffer ( protocol version protocol version comma list < byte buffer > parameters ) { assert parameters . size ( ) == 1 : " unexpectedly got " + parameters . size ( ) + " arguments for from json ()" ; byte buffer argument = parameters . get ( 0 ) ; if ( argument == null ) return null ; string json arg = utf8 type . instance . get serializer ( ) . deserialize ( argument ) ; try { object object = json . json object mapper . read value ( json arg comma object . class ) ; if ( object == null ) return null ; return return type . from json object ( object ) . bind and get ( query options . for protocol version ( protocol version ) ) ; } catch ( io exception exc ) { throw new function execution exception ( name comma collections . singleton list ( " text " ) comma string . format ( " could not decode json string '% s ': % s " comma json arg comma exc . to string ( ) ) ) ; } catch ( marshal exception exc ) { throw function execution exception . create ( this comma exc ) ; } } _eos_
+execute _eos_
+get _eos_
+
+override public string ( ) { return keyspace == null ? name : keyspace + "." + name ; } _eos_
+to string _eos_
+get string _eos_
+
+private static boolean ( list < ? extends assignment testable > args ) { return args . stream ( ) . any match ( abstract marker . raw . class :: is instance ) ; } _eos_
+contains markers _eos_
+is _eos_ _eos_
+
+( ) { super ( ud function . udf class loader ) ; } _eos_
+ecj target class loader _eos_
+get class loader _eos_
+
+protected permission collection ( code source codesource ) { return thread aware security manager . no permissions ; } _eos_
+get permissions _eos_
+get permission _eos_ _eos_
+
+public final boolean ( ) { return true ; } _eos_
+is aggregate _eos_
+is _eos_ _eos_
+
+public static collection < function > ( ) { list < function > functions = new array list < > ( ) ; final number type < ? > [ ] numeric types = new number type [ ] { byte type . instance comma short type . instance comma int32 type . instance comma long type . instance comma float type . instance comma double type . instance comma decimal type . instance comma integer type . instance comma counter column type . instance } ; for ( number type < ? > left : numeric types ) { for ( number type < ? > right : numeric types ) { number type < ? > return type = return type ( left comma right ) ; for ( operation operation : operation . values ( ) ) functions . add ( new numeric operation function ( return type comma left comma operation comma right ) ) ; } functions . add ( new numeric negation function ( left ) ) ; } for ( operation operation : new operation [ ] { operation . addition comma operation . _unk } ) { functions . add ( new temporal operation function ( timestamp type . instance comma operation ) ) ; functions . add ( new temporal operation function ( simple date type . instance comma operation ) ) ; } return functions ; } _eos_
+all _eos_
+get function _eos_
+
+public static operation ( string function name ) { for ( operation operator : values ( ) ) { if ( operator . function name . equals ( function name ) ) return operator ; } return null ; } _eos_
+from function name _eos_
+get _eos_ _eos_
+
+private static number type < ? > ( int size ) { switch ( size ) { case 1 : return byte type . instance ; case 2 : return short type . instance ; case 4 : return int32 type . instance ; case 8 : return long type . instance ; default : return integer type . instance ; } } _eos_
+integer type _eos_
+get instance type _eos_
+
+public byte buffer ( protocol version protocol version comma list < byte buffer > parameters ) throws invalid request exception { c builder builder = c builder . create ( metadata . partition key as clustering comparator ( ) ) ; for ( int i = 0 ; i < parameters . size ( ) ; i ++ ) { byte buffer bb = parameters . get ( i ) ; if ( bb == null ) return null ; builder . add ( bb ) ; } return metadata . partitioner . get token factory ( ) . to byte array ( metadata . partitioner . get token ( builder . build ( ) . serialize as partition key ( ) ) ) ; } _eos_
+execute _eos_
+serialize _eos_ _eos_
+
+public scalar function ( ) { return final function ; } _eos_
+final function _eos_
+get function function _eos_
+
+public set < string > ( string cls name comma byte [ ] bytes ) { string cls name sl = cls name . replace ( '.' comma '/' ) ; set < string > errors = new tree set < > ( ) ; class visitor class visitor = new class visitor ( opcodes . asm5 ) { public field visitor visit field ( int access comma string name comma string desc comma string signature comma object value ) { errors . add ( " field declared : " + name ) ; return null ; } public method visitor visit method ( int access comma string name comma string desc comma string signature comma string [ ] exceptions ) { if ( "< init >" . equals ( name ) && ctor sig . equals ( desc ) ) { if ( opcodes . acc public != access ) errors . add ( " constructor not public " ) ; return new constructor visitor ( errors ) ; } if ( " execute impl " . equals ( name ) && "( lorg / apache / cassandra / transport / protocol version ; ljava / util / list ;) ljava / nio / byte buffer ;" . equals ( desc ) ) { if ( opcodes . acc protected != access ) errors . add ( " execute impl not protected " ) ; return new execute impl visitor ( errors ) ; } if ( " execute aggregate impl " . equals ( name ) && "( lorg / apache / cassandra / transport / protocol version ; ljava / lang / object ; ljava / util / list ;) ljava / lang / object ;" . equals ( desc ) ) { if ( opcodes . acc protected != access ) errors . add ( " execute aggregate impl not protected " ) ; return new execute impl visitor ( errors ) ; } if ( "< clinit >" . equals ( name ) ) { errors . add ( " static initializer declared " ) ; } else { errors . add ( " not allowed method declared : " + name + desc ) ; return new execute impl visitor ( errors ) ; } return null ; } public void visit ( int version comma int access comma string name comma string signature comma string super
+verify _eos_
+get _eos_ _eos_
+
+public void ( string name comma string outer name comma string inner name comma int access ) { if ( cls name sl . equals ( outer name ) ) errors . add ( " class declared as inner class " ) ; super . visit inner class ( name comma outer name comma inner name comma access ) ; } _eos_
+visit inner class _eos_
+visit inner class _eos_
+
+public void ( int opcode comma string owner comma string name comma string desc comma boolean itf ) { if ( ! ( opcodes . invokespecial == opcode && java udf name . equals ( owner ) && "< init >" . equals ( name ) && ctor sig . equals ( desc ) ) ) { errors . add ( " initializer declared " ) ; } super . visit method insn ( opcode comma owner comma name comma desc comma itf ) ; } _eos_
+visit method insn _eos_
+visit method insn _eos_
+
+( list < column identifier > arg names comma type codec < object > [ ] arg codecs comma type codec < object > return codec comma keyspace metadata keyspace metadata ) { for ( int i = 0 ; i < arg names . size ( ) ; i ++ ) by name . put ( arg names . get ( i ) . to string ( ) comma arg codecs [ i ] ) ; this . arg codecs = arg codecs ; this . return codec = return codec ; this . keyspace metadata = keyspace metadata ; } _eos_
+udf context impl _eos_
+get _eos_ _eos_
+
+private type codec < object > ( string arg name ) { type codec < object > codec = by name . get ( arg name ) ; if ( codec == null ) throw new illegal argument exception ( " function does not declare an argument named '" + arg name + '|'' ) ; return codec ; } _eos_
+codec for _eos_
+get codec _eos_
+
+protected static object ( type codec < object > [ ] codecs comma protocol version protocol version comma int arg index comma byte buffer value ) { return value == null ? null : ud helper . deserialize ( codecs [ arg index ] comma protocol version comma value ) ; } _eos_
+compose _eos_
+deserialize _eos_
+
+public boolean ( ) { return false ; } _eos_
+is native _eos_
+is _eos_ _eos_
+
+public static type token < ? > [ ] ( type codec < object > [ ] data types comma boolean called on null input ) { type token < ? > [ ] param types = new type token [ data types . length ] ; for ( int i = 0 ; i < param types . length ; i ++ ) { type token < ? > type token = data types [ i ] . get java type ( ) ; if ( ! called on null input ) { class < ? > clazz = type token . get raw type ( ) ; if ( clazz == integer . class ) type token = type token . of ( int . class ) ; else if ( clazz == long . class ) type token = type token . of ( long . class ) ; else if ( clazz == byte . class ) type token = type token . of ( byte . class ) ; else if ( clazz == short . class ) type token = type token . of ( short . class ) ; else if ( clazz == float . class ) type token = type token . of ( float . class ) ; else if ( clazz == double . class ) type token = type token . of ( double . class ) ; else if ( clazz == boolean . class ) type token = type token . of ( boolean . class ) ; } param types [ i ] = type token ; } return param types ; } _eos_
+type tokens _eos_
+get parameter types _eos_
+
+public ( map < column identifier comma term > column map ) { this . column map = column map ; } _eos_
+prepared literal _eos_
+get _eos_ _eos_
+
+public string ( ) { return marker . to string ( ) ; } _eos_
+get text _eos_
+get marker _eos_
+
+public static void ( map < string comma object > value map ) { for ( string map key : new array list < > ( value map . key set ( ) ) ) { if ( map key . starts with ( """ ) && map key . ends with ( """ ) ) { value map . put ( map key . substring ( 1 comma map key . length ( ) - 1 ) comma value map . remove ( map key ) ) ; continue ; } string lowered = map key . to lower case ( locale . us ) ; if ( ! map key . equals ( lowered ) ) value map . put ( lowered comma value map . remove ( map key ) ) ; } } _eos_
+handle case sensitivity _eos_
+remove map _eos_
+
+public final boolean ( ) { return ks name != null ; } _eos_
+has keyspace _eos_
+is set name _eos_
+
+( long millis comma int nanos ) { this . millis = millis ; this . nanos = nanos ; } _eos_
+precision time _eos_
+_eos_ _eos_
+
+public ( column metadata column comma term idx comma term t ) { super ( column comma t ) ; this . idx = idx ; } _eos_
+setter by index _eos_
+get _eos_ _eos_
+
+public void ( list < function > functions ) { terms . add functions ( elements comma functions ) ; } _eos_
+add functions to _eos_
+add functions _eos_
+
+public terminal ( query options options ) throws invalid request exception { byte buffer value = options . get values ( ) . get ( bind index ) ; if ( value == null ) return null ; if ( value == byte buffer util . unset byte buffer ) return unset value ; return value . from serialized ( value comma ( list type ) receiver . type comma options . get protocol version ( ) ) ; } _eos_
+bind _eos_
+get _eos_
+
+public string ( ) { return list to string ( elements comma term . raw :: get text ) ; } _eos_
+get text _eos_
+get text text
+
+public static < t > string ( iterable < t > items comma java . util . function . function < t comma string > mapper ) { return stream support . stream ( items . spliterator ( ) comma false ) . map ( e -> mapper . apply ( e ) ) . collect ( collectors . joining ( " comma " comma "[" comma "]" ) ) ; } _eos_
+list to string _eos_
+to _eos_
+
+public ( comparator < byte buffer > comparator comma map < term comma term > elements ) { this . comparator = comparator ; this . elements = elements ; } _eos_
+delayed value _eos_
+test _eos_ _eos_
+
+public void ( list < function > functions ) { terms . add functions ( elements . key set ( ) comma functions ) ; terms . add functions ( elements . values ( ) comma functions ) ; } _eos_
+add functions to _eos_
+add functions _eos_
+
+public terminal ( query options options ) throws invalid request exception { byte buffer value = options . get values ( ) . get ( bind index ) ; if ( value == null ) return null ; if ( value == byte buffer util . unset byte buffer ) return unset value ; return value . from serialized ( value comma ( map type ) receiver . type comma options . get protocol version ( ) ) ; } _eos_
+bind _eos_
+get _eos_
+
+public list < column metadata . raw > ( ) { return entities ; } _eos_
+get entities _eos_
+get entities _eos_
+
+public list < ? extends term . raw > ( ) { assert relation type == operator . in ; return in values ; } _eos_
+get in values _eos_
+get in _eos_ _eos_
+
+public relation ( column metadata . raw from comma column metadata . raw to ) { if ( ! entities . contains ( from ) ) return this ; list < column metadata . raw > new entities = entities . stream ( ) . map ( e -> e . equals ( from ) ? to : e ) . collect ( collectors . to list ( ) ) ; return new multi column relation ( new entities comma operator ( ) comma values or marker comma in values comma in marker ) ; } _eos_
+rename identifier _eos_
+get _eos_ _eos_
+
+private ( int page size comma paging state state comma consistency level serial consistency comma long timestamp comma string keyspace ) { this . page size = page size ; this . state = state ; this . serial consistency = serial consistency == null ? consistency level . serial : serial consistency ; this . timestamp = timestamp ; this . keyspace = keyspace ; } _eos_
+specific options _eos_
+get _eos_ _eos_
+
+public consistency level ( ) { return wrapped . get consistency ( ) ; } _eos_
+get consistency _eos_
+get consistency _eos_
+
+override public query options ( list < column specification > specs ) { super . prepare ( specs ) ; ordered values = new array list < > ( specs . size ( ) ) ; for ( int i = 0 ; i < specs . size ( ) ; i ++ ) { string name = specs . get ( i ) . name . to string ( ) ; for ( int j = 0 ; j < names . size ( ) ; j ++ ) { if ( name . equals ( names . get ( j ) ) ) { ordered values . add ( wrapped . get values ( ) . get ( j ) ) ; break ; } } } return this ; } _eos_
+prepare _eos_
+prepare _eos_
+
+override public string ( ) { return to string builder . reflection to string ( this comma to string style . short prefix style ) ; } _eos_
+to string _eos_
+to string _eos_
+
+private static md5 digest ( string query string comma string keyspace ) { string to hash = keyspace == null ? query string : keyspace + query string ; return md5 digest . compute ( to hash ) ; } _eos_
+compute id _eos_
+compute _eos_ _eos_
+
+public static untyped result set ( string query comma int page size comma object ... values ) { parsed statement . prepared prepared = prepare internal ( query ) ; if ( ! ( prepared . statement instanceof select statement ) ) throw new illegal argument exception ( " only _unk ts can be paged " ) ; select statement select = ( select statement ) prepared . statement ; query pager pager = select . get query ( make internal options ( prepared comma values ) comma fb utilities . now in seconds ( ) ) . get pager ( null comma protocol version . current ) ; return untyped result set . create ( select comma pager comma page size ) ; } _eos_
+execute internal with paging _eos_
+prepare _eos_
+
+public void ( string ks name comma string function name comma list < abstract type < ? >> arg types ) { remove invalid prepared statements for function ( ks name comma function name ) ; } _eos_
+on alter function _eos_
+remove function _eos_ _eos_
+
+public void ( string ks name comma string function name comma list < abstract type < ? >> arg types ) { remove invalid prepared statements for function ( ks name comma function name ) ; } _eos_
+on drop function _eos_
+remove function _eos_ _eos_
+
+public static untyped result set ( string query comma partition iterator partitions ) { try ( partition iterator iter = partitions ) { select statement ss = ( select statement ) get statement ( query comma null ) . statement ; result set cql rows = ss . process ( iter comma fb utilities . now in seconds ( ) ) ; return untyped result set . create ( cql rows ) ; } } _eos_
+resultify _eos_
+get _eos_
+
+public boolean ( ) { return false ; } _eos_
+on token _eos_
+is _eos_ _eos_
+
+override public string ( ) { return to string builder . reflection to string ( this comma to string style . short prefix style ) ; } _eos_
+to string _eos_
+to string _eos_
+
+public ( list < column metadata > column defs ) { super ( column defs ) ; } _eos_
+in restriction _eos_
+get column _eos_
+
+private list < byte buffer > ( bound b comma query options options ) { if ( ! slice . has bound ( b ) ) return collections . empty list ( ) ; terminal terminal = slice . bound ( b ) . bind ( options ) ; if ( terminal instanceof tuples . value ) { return ( ( tuples . value ) terminal ) . get elements ( ) ; } return collections . singleton list ( terminal . get ( options . get protocol version ( ) ) ) ; } _eos_
+component bounds _eos_
+get _eos_ _eos_
+
+override public boolean ( bound bound ) { return slice . is inclusive ( bound ) ; } _eos_
+is inclusive _eos_
+is bound _eos_
+
+override public boolean ( ) { return true ; } _eos_
+is not null _eos_
+is _eos_ _eos_
+
+override public string ( ) { return to string builder . reflection to string ( this comma to string style . short prefix style ) ; } _eos_
+to string _eos_
+to string _eos_
+
+override public final boolean ( secondary index manager index manager ) { for ( restriction restriction : restrictions . values ( ) ) { if ( restriction . has supporting index ( index manager ) ) return true ; } return false ; } _eos_
+has supporting index _eos_
+has index index _eos_
+
+public boolean ( secondary index manager index manager ) { return restrictions . has supporting index ( index manager ) ; } _eos_
+has supporting index _eos_
+has index index _eos_
+
+public ( column metadata column def comma list < term > values ) { super ( column def ) ; this . values = values ; } _eos_
+in restriction with values _eos_
+get column _eos_
+
+public ( column metadata column def ) { super ( column def ) ; } _eos_
+is not null restriction _eos_
+column column _eos_
+
+override public boolean ( ) { return true ; } _eos_
+is like _eos_
+is _eos_ _eos_
+
+override public boolean ( ) { return true ; } _eos_
+is not null _eos_
+is _eos_ _eos_
+
+public int ( ) { return keys . size ( ) ; } _eos_
+number of keys _eos_
+size _eos_
+
+override multi column restriction ( ) { throw new unsupported operation exception ( ) ; } _eos_
+to multi column restriction _eos_
+get multi column _eos_
+
+public static statement restrictions empty ( statement type type comma table metadata table ) { return new statement restrictions ( type comma table comma false ) ; } _eos_
+empty _eos_
+empty _eos_
+
+private restrictions ( column metadata . kind kind ) { switch ( kind ) { case partition key : return partition key restrictions ; case clustering : return clustering columns restrictions ; default : return non primary key restrictions ; } } _eos_
+get restrictions _eos_
+get primary key _eos_ _eos_
+
+private void ( list < custom index expression > expressions comma variable specifications bound names comma secondary index manager index manager ) { if ( expressions . size ( ) > 1 ) throw new invalid request exception ( index restrictions . multiple expressions ) ; custom index expression expression = expressions . get ( 0 ) ; cf name cf name = expression . target index . get cf name ( ) ; if ( cf name . has keyspace ( ) && ! expression . target index . get keyspace ( ) . equals ( table . keyspace ) ) throw index restrictions . invalid index ( expression . target index comma table ) ; if ( cf name . get column family ( ) != null && ! cf name . get column family ( ) . equals ( table . name ) ) throw index restrictions . invalid index ( expression . target index comma table ) ; if ( ! table . indexes . has ( expression . target index . get idx ( ) ) ) throw index restrictions . index not found ( expression . target index comma table ) ; index index = index manager . get index ( table . indexes . get ( expression . target index . get idx ( ) ) . get ( ) ) ; if ( ! index . get index metadata ( ) . is custom ( ) ) throw index restrictions . non custom index in expression ( expression . target index ) ; abstract type < ? > expression type = index . custom expression value type ( ) ; if ( expression type == null ) throw index restrictions . custom expression not supported ( expression . target index ) ; expression . prepare value ( table comma expression type comma bound names ) ; filter restrictions . add ( expression ) ; } _eos_
+process custom index expressions _eos_
+add index _eos_ _eos_
+
+public void ( list < function > functions ) { if ( has bound ( bound . start ) ) bound ( bound . start ) . add functions to ( functions ) ; if ( has bound ( bound . end ) ) bound ( bound . end ) . add functions to ( functions ) ; } _eos_
+add functions to _eos_
+add functions to _eos_
+
+public boolean ( bound b ) { return bounds [ b . idx ] == null || bound inclusive [ b . idx ] ; } _eos_
+is inclusive _eos_
+is bound _eos_
+
+override public boolean ( ) { return restrictions . is empty ( ) ; } _eos_
+is empty _eos_
+is empty _eos_
+
+override public set < restriction > ( column metadata column def ) { return collections . singleton ( this ) ; } _eos_
+get restrictions _eos_
+get column _eos_
+
+override public boolean ( bound b ) { return slice . has bound ( b ) ; } _eos_
+has bound _eos_
+has bound _eos_
+
+private ( enum set < flag > flags comma list < column specification > names comma short [ ] partition key bind indexes ) { this . flags = flags ; this . names = names ; this . partition key bind indexes = partition key bind indexes ; } _eos_
+prepared metadata _eos_
+set _eos_ _eos_
+
+public void ( byte buffer value ) { if ( rows . is empty ( ) || last row ( ) . size ( ) == metadata . value count ( ) ) rows . add ( new array list < byte buffer > ( metadata . value count ( ) ) ) ; last row ( ) . add ( value ) ; } _eos_
+add column value _eos_
+add _eos_ _eos_
+
+public void ( list < byte buffer > row ) { assert row . size ( ) == metadata . value count ( ) ; rows . add ( row ) ; } _eos_
+add row _eos_
+add row _eos_
+
+visible for testing public int ( ) { return column count ; } _eos_
+get column count _eos_
+get column count _eos_
+
+public boolean ( ) { return name != null ; } _eos_
+has name _eos_
+is name _eos_
+
+protected ( t fun comma list < selector > arg selectors ) { this . fun = fun ; this . arg selectors = arg selectors ; this . args = arrays . as list ( new byte buffer [ arg selectors . size ( ) ] ) ; } _eos_
+abstract function selector _eos_
+get _eos_ _eos_
+
+protected abstract type < ? > ( ) { return fun . return type ( ) ; } _eos_
+get return type _eos_
+get type _eos_
+
+public void ( protocol version protocol version comma result set builder rs ) throws invalid request exception { for ( int i = 0 comma m = arg selectors . size ( ) ; i < m ; i ++ ) { selector s = arg selectors . get ( i ) ; s . add input ( protocol version comma rs ) ; set arg ( i comma s . get output ( protocol version ) ) ; s . reset ( ) ; } this . aggregate . add input ( protocol version comma args ( ) ) ; } _eos_
+add input _eos_
+add protocol _eos_
+
+public ( column filter column filter ) { this . column filter = column filter ; } _eos_
+precomputed column filter _eos_
+get filter _eos_
+
+private ( selector selected comma byte buffer from comma byte buffer to ) { super ( selected ) ; assert selected . get type ( ) instanceof map type || selected . get type ( ) instanceof set type : " this shouldn ' t have passed validation in selectable " ; assert from != null && to != null : " we can have unset buffers comma but not nulls " ; this . type = ( collection type < ? > ) selected . get type ( ) ; this . from = from ; this . to = to ; } _eos_
+slice selector _eos_
+test _eos_ _eos_
+
+public byte buffer ( protocol version protocol version ) throws invalid request exception { byte buffer value = selected . get output ( protocol version ) ; return value == null ? null : extract selection ( value ) ; } _eos_
+get output _eos_
+get _eos_ _eos_
+
+protected abstract type < ? > ( ) { return type ; } _eos_
+get return type _eos_
+get type _eos_
+
+public boolean ( ) { return factory . is aggregate selector factory ( ) ; } _eos_
+is aggregate selector factory _eos_
+is aggregate selector factory _eos_
+
+private static boolean ( byte buffer bb ) { return bb == byte buffer util . unset byte buffer ; } _eos_
+is unset _eos_
+is byte byte buffer
+
+private static abstract type < ? > ( collection type < ? > type ) { return type . name comparator ( ) ; } _eos_
+key type _eos_
+name _eos_ _eos_
+
+public void ( protocol version protocol version comma result set builder rs ) throws invalid request exception { selected . add input ( protocol version comma rs ) ; } _eos_
+add input _eos_
+add protocol _eos_
+
+public abstract type < ? > ( ) { return type . field type ( field ) ; } _eos_
+get type _eos_
+get type _eos_
+
+public boolean ( ) { return factory . is aggregate selector factory ( ) ; } _eos_
+is aggregate selector factory _eos_
+is aggregate selector factory _eos_
+
+override public boolean ( ) { return delegate ( ) . is ttl selector factory ( ) ; } _eos_
+is ttl selector factory _eos_
+is ttl selector factory _eos_
+
+public void ( protocol version protocol version comma result set builder rs ) throws invalid request exception { for ( int i = 0 comma m = arg selectors . size ( ) ; i < m ; i ++ ) { selector s = arg selectors . get ( i ) ; s . add input ( protocol version comma rs ) ; } } _eos_
+add input _eos_
+add protocol _eos_
+
+private list < pair < selectable comma selectable >> ( table metadata cfm ) { return raws . stream ( ) . map ( p -> pair . create ( p . left . prepare ( cfm ) comma p . right . prepare ( cfm ) ) ) . collect ( collectors . to list ( ) ) ; } _eos_
+get map entries _eos_
+prepare _eos_ _eos_
+
+private factory ( table metadata cfm comma list < column metadata > defs comma variable specifications bound names comma abstract type < ? > type ) { map type < ? comma ? > map type = ( map type < ? comma ? > ) type ; if ( map type . get keys type ( ) == duration type . instance ) throw invalid request ( " durations are not allowed as map keys : % s " comma map type . as cql3 type ( ) ) ; return map selector . new factory ( type comma get map entries ( cfm ) . stream ( ) . map ( p -> pair . create ( p . left . new selector factory ( cfm comma map type . get keys type ( ) comma defs comma bound names ) comma p . right . new selector factory ( cfm comma map type . get values type ( ) comma defs comma bound names ) ) ) . collect ( collectors . to list ( ) ) ) ; } _eos_
+new map selector factory _eos_
+create factory _eos_
+
+override public string ( ) { return string . format ( "% s [% s ..% s ]" comma selected comma from == null ? "" : from comma to == null ? "" : to ) ; } _eos_
+to string _eos_
+to string _eos_
+
+public ( table metadata table comma list < column metadata > columns comma set < column metadata > ordering columns comma set < column metadata > non pk restricted columns comma selection column mapping metadata comma selector factories factories comma boolean is json ) { super ( table comma columns comma ordering columns comma metadata comma column filter factory . from selector factories ( table comma factories comma ordering columns comma non pk restricted columns ) comma is json ) ; this . factories = factories ; this . collect timestamps = factories . contains writetime selector factory ( ) ; this . collect tt ls = factories . contains ttl selector factory ( ) ; ; for ( column metadata ordering column : ordering columns ) { factories . add selector for ordering ( ordering column comma get column index ( ordering column ) ) ; } } _eos_
+selection with processing _eos_
+get _eos_ _eos_ _eos_
+
+public boolean ( ) { return factories . does aggregation ( ) ; } _eos_
+is aggregate _eos_
+has aggregation _eos_
+
+private static boolean ( list < selectable > selectables ) { for ( selectable selectable : selectables ) { if ( selectable . processes selection ( ) ) return true ; } return false ; } _eos_
+processes selection _eos_
+is selection _eos_
+
+public static selection ( table metadata table comma boolean is json ) { list < column metadata > all = new array list < > ( table . columns ( ) . size ( ) ) ; iterators . add all ( all comma table . all columns in select order ( ) ) ; return new simple selection ( table comma all comma collections . empty set ( ) comma true comma is json ) ; } _eos_
+wildcard _eos_
+create selection _eos_
+
+public string ( ) { return column mappings . as map ( ) . entry set ( ) . stream ( ) . map ( entry -> entry . get value ( ) . stream ( ) . map ( col def -> col def . name . to string ( ) ) . collect ( collectors . joining ( " comma " comma entry . get key ( ) . name . to string ( ) + ":[" comma "]" ) ) ) . collect ( collectors . joining ( " comma " comma column specifications . stream ( ) . map ( col spec -> col spec . name . to string ( ) ) . collect ( collectors . joining ( " comma " comma "{ columns :[" comma "] comma mappings :{" ) ) comma "} }" ) ) ; } _eos_
+to string _eos_
+get string _eos_
+
+public column specification ( table metadata table ) { return new column specification ( table . keyspace comma table . name comma new column identifier ( get column name ( ) comma true ) comma get return type ( ) ) ; } _eos_
+get column specification _eos_
+get _eos_ _eos_
+
+public boolean ( ) { return contains ttl factory ; } _eos_
+contains ttl selector factory _eos_
+is ttl ttl factory _eos_
+
+private ( column metadata column comma int idx ) { this . column = column ; this . idx = idx ; } _eos_
+simple selector _eos_
+column _eos_ _eos_
+
+private ( int idx comma column metadata def ) { this . idx = idx ; this . column = def ; } _eos_
+simple selector factory _eos_
+column _eos_ _eos_
+
+protected void ( selection column mapping mapping comma column specification result column ) { mapping . add mapping ( result column comma ( column metadata ) null ) ; } _eos_
+add column mapping _eos_
+add mapping _eos_
+
+public abstract type < ? > ( ) { return type ; } _eos_
+get type _eos_
+get type _eos_
+
+public static factory ( final abstract type < ? > type comma final selector factories factories ) { return new collection factory ( type comma factories ) { protected string get column name ( ) { return tuples . tuple to string ( factories comma factory :: get column name ) ; } public selector new instance ( final query options options ) { return new tuple selector ( type comma factories . new instances ( options ) ) ; } } ; } _eos_
+new factory _eos_
+create factory _eos_
+0.6089506172839507
