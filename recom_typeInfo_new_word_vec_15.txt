@@ -1,0 +1,866 @@
+cycle: 1 cycle_length: 15 nh: 100 nl: 100
+
+public <s> sasl negotiator </s> ( <t> <s> inet address </s> <s> client address </s> </t> ) { return <s> authenticator instance </s> ; } _eos_
+new sasl negotiator _eos_
+get sasl instance _eos_
+
+public void ( <t> <s> authenticated user </s> <s> performer </s> </t> , <t> <s> set </s> < <s> permission </s> > <s> permissions </s> </t> , <t> <s> i resource </s> <s> resource </s> </t> , <t> <s> role resource </s> <s> to </s> </t> ) { throw new <s> unsupported operation exception </s> ( <s> " grant operation is not supported by allow all authorizer" </s> ) ; } _eos_
+grant _eos_
+check permission _eos_
+
+public ( <t> <s> string </s> <s> name </s> </t> ) { this . <s> name </s> = <s> name </s> ; this . <s> role </s> = <s> role resource </s> . <s> role </s> ( <s> name </s> ) ; } _eos_
+authenticated user _eos_
+user _eos_ _eos_
+
+public <s> set </s> < <s> permission </s> > ( <t> <s> i resource </s> <s> resource </s> </t> ) { return <s> permissions cache </s> . <s> get permissions </s> ( this , <s> resource </s> ) ; } _eos_
+get permissions _eos_
+get permissions _eos_
+
+public boolean ( ) { return ! <s> is anonymous </s> ( ) && <s> roles </s> . <s> has superuser status </s> ( <s> role </s> ) ; } _eos_
+is super _eos_
+has user _eos_ _eos_
+
+public void ( <t> <s> string </s> <s> ks name </s> </t> , <t> <s> string </s> <s> aggregate name </s> </t> , <s> list </s> < <s> abstract type </s> < ? >> <s> arg types </s> ) { <s> database descriptor </s> . <s> get authorizer </s> ( ) . <s> revoke all on </s> ( <s> function resource </s> . <s> function </s> ( <s> ks name </s> , <s> aggregate name </s> , <s> arg types </s> ) ) ; } _eos_
+on drop aggregate _eos_
+notify all _eos_ _eos_
+
+private <s> select statement </s> ( <t> <s> string </s> <s> _unk </s> </t> , <t> <s> string </s> <s> permissions table </s> </t> ) { <t> <s> string </s> <s> query </s> </t> = <s> string </s> . <s> format </s> ( <s> " select permissions from %s.%s where %s = ? and resource = ?" </s> , <s> schema constants </s> . <s> auth keyspace name </s> , <s> permissions table </s> , <s> _unk </s> ) ; return ( <s> select statement </s> ) <s> query processor </s> . <s> get statement </s> ( <s> query </s> , <s> client state </s> . <s> for internal calls </s> ( ) ) . <s> statement </s> ; } _eos_
+prepare _eos_
+get statement _eos_ _eos_
+
+public <s> set </s> < <s> data resource </s> > ( ) { return <s> immutable set </s> . <s> of </s> ( <s> data resource </s> . <s> table </s> ( <s> schema constants </s> . <s> auth keyspace name </s> , <s> auth keyspace </s> . <s> role permissions </s> ) ) ; } _eos_
+protected resources _eos_
+get data _eos_ _eos_
+
+@ <s> override </s> public void ( <t> <s> subject </s> <s> subject </s> </t> , <t> <s> callback handler </s> <s> callback handler </s> </t> , <s> map </s> < <s> java </s> . <s> lang </s> . <s> string </s> , ? > <s> shared state </s> , <s> map </s> < <s> java </s> . <s> lang </s> . <s> string </s> , ? > <s> options </s> ) { this . <s> subject </s> = <s> subject </s> ; this . <s> callback handler </s> = <s> callback handler </s> ; } _eos_
+initialize _eos_
+add subject _eos_
+
+@ <s> override </s> public boolean ( <t> <s> object </s> <s> o </s> </t> ) { if ( <s> o </s> == null ) return false ; if ( this == <s> o </s> ) return true ; if ( ! ( <s> o </s> instanceof <s> cassandra principal </s> ) ) return false ; <t> <s> cassandra principal </s> <s> that </s> </t> = ( <s> cassandra principal </s> ) <s> o </s> ; if ( this . <s> get name </s> ( ) . <s> equals </s> ( <s> that </s> . <s> get name </s> ( ) ) ) return true ; return false ; } _eos_
+equals _eos_
+equals _eos_
+
+private ( <t> <s> string </s> <s> name </s> </t> , <t> boolean <s> is super </s> </t> , <t> boolean <s> can login </s> </t> , <t> <s> set </s> < <s> string </s> > <s> member of </s> </t> ) { this . <s> name </s> = <s> name </s> ; this . <s> is super </s> = <s> is super </s> ; this . <s> can login </s> = <s> can login </s> ; this . <s> member of </s> = <s> member of </s> ; } _eos_
+role _eos_
+user _eos_ _eos_
+
+protected static <s> consistency level </s> ( <t> <s> string </s> <s> role </s> </t> ) { if ( <s> role </s> . <s> equals </s> ( <s> default superuser name </s> ) ) return <s> consistency level </s> . <s> quorum </s> ; else return <s> consistency level </s> . <s> local one </s> ; } _eos_
+consistency for role _eos_
+get user _eos_ _eos_
+
+public boolean ( <t> <s> role resource </s> <s> role </s> </t> ) { return <s> get role </s> ( <s> role </s> . <s> get role name </s> ( ) ) . <s> is super </s> ; } _eos_
+is super _eos_
+is role _eos_
+
+private <s> iterable </s> < <s> string </s> > ( <t> <s> map </s> < <s> option </s> , <s> object </s> > <s> options </s> </t> ) { return <s> iterables </s> . <s> transform </s> ( <s> options </s> . <s> entry set </s> ( ) , new <s> function </s> < <s> map </s> . <s> entry </s> < <s> option </s> , <s> object </s> > , <s> string </s> > ( ) { public <s> string </s> <s> apply </s> ( <s> map </s> . <t> <s> entry </s> < <s> option </s> , <s> object </s> > <s> entry </s> </t> ) { switch ( <s> entry </s> . <s> get key </s> ( ) ) { case <s> login </s> : return <s> string </s> . <s> format </s> ( <s> "can login = %s" </s> , <s> entry </s> . <s> get value </s> ( ) ) ; case <s> superuser </s> : return <s> string </s> . <s> format </s> ( <s> "is superuser = %s" </s> , <s> entry </s> . <s> get value </s> ( ) ) ; case <s> password </s> : return <s> string </s> . <s> format </s> ( <s> _unk hash = '%s'" </s> , <s> escape </s> ( <s> hashpw </s> ( ( <s> string </s> ) <s> entry </s> . <s> get value </s> ( ) ) ) ) ; default : return null ; } } } ) ; } _eos_
+options to assignments _eos_
+get _eos_ _eos_
+
+private static void ( ) { if ( <s> storage service </s> . <s> instance </s> . <s> get token metadata </s> ( ) . <s> sorted tokens </s> ( ) . <s> is empty </s> ( ) ) throw new <s> illegal state exception </s> ( <s> " cassandra role manager skipped default role setup: no known tokens in ring" </s> ) ; try { if ( ! <s> has existing roles </s> ( ) ) { <s> query processor </s> . <s> process </s> ( <s> string </s> . <s> format </s> ( <s> " insert into %s.%s _unk is _unk can _unk salted hash) " </s> + <s> " values ('%s', true, true, '%s')" </s> , <s> schema constants </s> . <s> auth keyspace name </s> , <s> auth keyspace </s> . <s> roles </s> , <s> default superuser name </s> , <s> escape </s> ( <s> hashpw </s> ( <s> default superuser password </s> ) ) ) , <s> consistency for role </s> ( <s> default superuser name </s> ) ) ; <s> logger </s> . <s> info </s> ( <s> " created default superuser role '{}'" </s> , <s> default superuser name </s> ) ; } } catch ( <t> <s> request execution exception </s> <s> e </s> </t> ) { <s> logger </s> . <s> warn </s> ( <s> " cassandra role manager skipped default role setup: some nodes were not ready" </s> ) ; throw <s> e </s> ; } } _eos_
+setup default role _eos_
+validate role _eos_ _eos_
+
+@ <s> override </s> public <s> string </s> ( ) { switch ( <s> level </s> ) { case <s> root </s> : return <s> "<all _unk </s> ; case <s> keyspace </s> : return <s> string </s> . <s> format </s> ( <s> _unk %s>" </s> , <s> keyspace </s> ) ; case <s> table </s> : return <s> string </s> . <s> format </s> ( <s> "<table _unk </s> , <s> keyspace </s> , <s> table </s> ) ; } throw new <s> assertion error </s> ( ) ; } _eos_
+to string _eos_
+to string _eos_
+
+public static <s> function resource </s> <s> keyspace </s> ( <t> <s> string </s> <s> keyspace </s> </t> ) { return new <s> function resource </s> ( <s> keyspace </s> ) ; } _eos_
+keyspace _eos_
+keyspace _eos_
+
+public <s> byte[] </s> <s> evaluate response </s> ( <t> <s> byte[] </s> <s> client response </s> </t> ) throws <s> authentication exception </s> ; _eos_
+evaluate response _eos_
+evaluate response _eos_
+
+private <s> set </s> < <s> jmx resource </s> > ( <t> <s> role resource </s> <s> subject </s> </t> , <t> <s> permission </s> <s> required </s> </t> ) { return <s> get permissions </s> . <s> apply </s> ( <s> subject </s> ) . <s> stream </s> ( ) . <s> filter </s> ( <s> details </s> -> <s> details </s> . <s> permission </s> == <s> required </s> ) . <s> map </s> ( <s> details </s> -> ( <s> jmx resource </s> ) <s> details </s> . <s> resource </s> ) . <s> collect </s> ( <s> collectors </s> . <s> to set </s> ( ) ) ; } _eos_
+get permitted resources _eos_
+get _eos_ _eos_
+
+private static <s> set </s> < <s> permission details </s> > ( <t> <s> role resource </s> <s> subject </s> </t> ) { return <s> database descriptor </s> . <s> get authorizer </s> ( ) . <s> list </s> ( <s> authenticated user </s> . <s> system user </s> , <s> permission </s> . <s> all </s> , null , <s> subject </s> ) . <s> stream </s> ( ) . <s> filter </s> ( <s> details </s> -> <s> details </s> . <s> resource </s> instanceof <s> jmx resource </s> ) . <s> collect </s> ( <s> collectors </s> . <s> to set </s> ( ) ) ; } _eos_
+load permissions _eos_
+get _eos_ _eos_
+
+@ <s> override </s> public boolean ( <t> <s> object </s> <s> o </s> </t> ) { if ( this == <s> o </s> ) return true ; if ( ! ( <s> o </s> instanceof <s> jmx resource </s> ) ) return false ; <t> <s> jmx resource </s> <s> j </s> </t> = ( <s> jmx resource </s> ) <s> o </s> ; return <s> objects </s> . <s> equal </s> ( <s> level </s> , <s> j </s> . <s> level </s> ) && <s> objects </s> . <s> equal </s> ( <s> name </s> , <s> j </s> . <s> name </s> ) ; } _eos_
+equals _eos_
+equals _eos_
+
+public <s> sasl negotiator </s> ( <t> <s> inet address </s> <s> client address </s> </t> ) { return new <s> plain text sasl authenticator </s> ( ) ; } _eos_
+new sasl negotiator _eos_
+get sasl _eos_ _eos_
+
+public ( <t> <s> i authorizer </s> <s> authorizer </s> </t> ) { super ( <s> " permissions cache" </s> , <s> database descriptor </s> :: <s> set permissions validity </s> , <s> database descriptor </s> :: <s> get permissions validity </s> , <s> database descriptor </s> :: <s> set permissions update interval </s> , <s> database descriptor </s> :: <s> get permissions update interval </s> , <s> database descriptor </s> :: <s> set permissions cache max entries </s> , <s> database descriptor </s> :: <s> get permissions cache max entries </s> , ( <s> p </s> ) -> <s> authorizer </s> . <s> authorize </s> ( <s> p </s> . <s> left </s> , <s> p </s> . <s> right </s> ) , ( ) -> <s> database descriptor </s> . <s> get authorizer </s> ( ) . <s> require authorization </s> ( ) ) ; } _eos_
+permissions cache _eos_
+permissions permissions _eos_ _eos_
+
+@ <s> deprecated </s> public static <s> string </s> ( <t> <s> list </s> < <s> object </s> > <s> resource </s> </t> ) { <t> <s> string builder </s> <s> buff </s> </t> = new <s> string builder </s> ( ) ; for ( <t> <s> object </s> <s> component </s> </t> : <s> resource </s> ) { <s> buff </s> . <s> append </s> ( "/" ) ; if ( <s> component </s> instanceof <s> byte[] </s> ) <s> buff </s> . <s> append </s> ( <s> hex </s> . <s> bytes to hex </s> ( ( <s> byte[] </s> ) <s> component </s> ) ) ; else <s> buff </s> . <s> append </s> ( <s> component </s> ) ; } return <s> buff </s> . <s> to string </s> ( ) ; } _eos_
+to string _eos_
+to string _eos_ _eos_
+
+public <s> map </s> < <s> i role manager </s> . <s> option </s> , <s> object </s> > ( ) { return <s> options </s> ; } _eos_
+get options _eos_
+get options _eos_
+
+public <s> i resource </s> ( ) { if ( <s> level </s> == <s> level </s> . <s> role </s> ) return <s> root </s> ( ) ; throw new <s> illegal state exception </s> ( <s> " _unk resource can' t have a parent" </s> ) ; } _eos_
+get parent _eos_
+get root _eos_
+
+public <s> batch </s> ( <t> <s> data input plus </s> <s> in </s> </t> , <t> int <s> version </s> </t> ) throws <s> io exception </s> { <t> <s> uuid </s> <s> id </s> </t> = <s> uuid serializer </s> . <s> serializer </s> . <s> deserialize </s> ( <s> in </s> , <s> version </s> ) ; <t> long <s> creation time </s> </t> = <s> in </s> . <s> read long </s> ( ) ; return <s> version </s> == <s> messaging service </s> . <s> current version </s> ? <s> create remote </s> ( <s> id </s> , <s> creation time </s> , <s> read encoded mutations </s> ( <s> in </s> ) ) : <s> create local </s> ( <s> id </s> , <s> creation time </s> , <s> decode mutations </s> ( <s> in </s> , <s> version </s> ) ) ; } _eos_
+deserialize _eos_
+deserialize _eos_
+
+( <t> <s> collection </s> < <s> inet address and port </s> > <s> write endpoints </s> </t> , <t> long <s> query start nano time </s> </t> ) { super ( <s> write endpoints </s> , <s> collections </s> . < <s> inet address and port </s> > <s> empty set </s> ( ) , null , null , null , <s> write type </s> . <s> unlogged batch </s> , <s> query start nano time </s> ) ; <s> undelivered </s> . <s> add all </s> ( <s> write endpoints </s> ) ; } _eos_
+replay write response handler _eos_
+write write _eos_ _eos_
+
+void ( ) throws <s> interrupted exception </s> , <s> execution exception </s> { <s> batchlog tasks </s> . <s> submit </s> ( this :: <s> replay failed batches </s> ) . <s> get </s> ( ) ; } _eos_
+perform initial replay _eos_
+replay failed failed _eos_
+
+public <s> compaction info </s> ( ) { return <s> info </s> . <s> for progress </s> ( <s> keys written </s> , <s> math </s> . <s> max </s> ( <s> keys written </s> , <s> keys estimate </s> ) ) ; } _eos_
+get compaction info _eos_
+get progress _eos_
+
+public <s> output stream </s> ( <t> <s> file </s> <s> data path </s> </t> , <t> <s> file </s> <s> crc path </s> </t> ) { return new <s> checksummed sequential writer </s> ( <s> data path </s> , <s> crc path </s> , null , <s> writer option </s> ) ; } _eos_
+get output stream _eos_
+create output _eos_ _eos_
+
+public void ( ) { <s> logger </s> . <s> trace </s> ( <s> " deleting old {} files." </s> , <s> cache type </s> ) ; <s> delete old cache files </s> ( ) ; if ( ! <s> key iterator </s> . <s> has next </s> ( ) ) { <s> logger </s> . <s> trace </s> ( <s> " skipping {} _unk cache is empty." </s> , <s> cache type </s> ) ; return ; } <t> long <s> start </s> </t> = <s> system </s> . <s> nano time </s> ( ) ; <t> <s> pair </s> < <s> file </s> , <s> file </s> > <s> cache file paths </s> </t> = <s> temp cache files </s> ( ) ; try ( <t> <s> wrapped data output stream plus </s> <s> writer </s> </t> = new <s> wrapped data output stream plus </s> ( <s> stream factory </s> . <s> get output stream </s> ( <s> cache file paths </s> . <s> left </s> , <s> cache file paths </s> . <s> right </s> ) ) ) { <t> <s> uuid </s> <s> schema version </s> </t> = <s> schema </s> . <s> instance </s> . <s> get version </s> ( ) ; if ( <s> schema version </s> == null ) { <s> schema </s> . <s> instance </s> . <s> update version </s> ( ) ; <s> schema version </s> = <s> schema </s> . <s> instance </s> . <s> get version </s> ( ) ; } <s> writer </s> . <s> write long </s> ( <s> schema version </s> . <s> get most significant bits </s> ( ) ) ; <s> writer </s> . <s> write long </s> ( <s> schema version </s> . <s> get least significant bits </s> ( ) ) ; while ( <s> key iterator </s> . <s> has next </s> ( ) ) { <t> <s> k </s> <s> key </s> </t> = <s> key iterator </s> . <s> next </s> ( ) ; <t> <s> column family store </s> <s> cfs </s> </t> = <s> schema </s> . <s> instance </s> . <s> get column family store instance </s> ( <s> key </s> . <s> table id </s> ) ; if ( <s> cfs </s> == null ) continue ; if ( <s> key </s> . <s> index name </s> != null ) <s> cfs </s> = <s> cfs </s> . <s> index manager </s> . <s> get index by name </s> ( <s> key </s> . <s> index name </s> ) . <s> get backing table </s> ( ) . <s> or else </s> ( null ) ; <s> cache loader </s> . <s> serialize </s> ( <s> key </s> , <s> writer </s> , <s> cfs </s> ) ; <s> keys written </s> ++ ; if ( <s> keys written </s> >= <s> keys estimate </s> ) break ; } } catch ( <t> <s> file not found exception </s> <s> e </s> </t> ) { throw new <s> runtime exception </s> ( <s> e </s> ) ; } catch ( <t> <s> io exception </s> <s> e </s> </t> ) { throw new <s> fs write error </s> ( <s> e </s> , <s> cache file paths </s> . <s> left </s> ) ; } <t> <s> file </s> <s> cache file </s> </t> = <s> get cache data path </s> ( <s> current version </s> ) ; <t> <s> file </s> <s> crc file </s> </t> = <s> get cache crc path </s> ( <s> current version </s> ) ; <s> cache file </s> . <s> delete </s> ( ) ; <s> crc file </s> . <s> delete </s> ( ) ; if ( ! <s> cache file paths </s> . <s> left </s> . <s> rename to </s> ( <s> cache file </s> ) ) <s> logger </s> . <s> error </s> (
+save cache _eos_
+delete _eos_
+
+public void ( <t> int <s> save period in seconds </s> </t> , final <t> int <s> keys to save </s> </t> ) { if ( <s> save task </s> != null ) { <s> save task </s> . <s> cancel </s> ( false ) ; <s> save task </s> = null ; } if ( <s> save period in seconds </s> > 0 ) { <t> <s> runnable </s> <s> runnable </s> </t> = new <s> runnable </s> ( ) { public void <s> run </s> ( ) { <s> submit write </s> ( <s> keys to save </s> ) ; } } ; <s> save task </s> = <s> scheduled executors </s> . <s> optional tasks </s> . <s> schedule with fixed delay </s> ( <s> runnable </s> , <s> save period in seconds </s> , <s> save period in seconds </s> , <s> time unit </s> . <s> seconds </s> ) ; } } _eos_
+schedule saving _eos_
+save save _eos_
+
+public void ( ) { <s> cache </s> . <s> invalidate all </s> ( ) ; } _eos_
+clear _eos_
+invalidate _eos_ _eos_
+
+public boolean ( <t> <s> k </s> <s> key </s> </t> ) { return <s> cache </s> . <s> as map </s> ( ) . <s> contains key </s> ( <s> key </s> ) ; } _eos_
+contains key _eos_
+contains key _eos_
+
+public int ( ) { return <s> cache </s> . <s> as map </s> ( ) . <s> size </s> ( ) ; } _eos_
+size _eos_
+size _eos_ _eos_
+
+public long ( ) { return <s> policy </s> . <s> weighted size </s> ( ) . <s> get as long </s> ( ) ; } _eos_
+weighted size _eos_
+get size _eos_
+
+@ <s> override </s> public long ( ) { return <s> offset </s> ; } _eos_
+offset _eos_
+get offset _eos_
+
+@ <s> override </s> public <s> buffer </s> ( <t> long <s> position </s> </t> ) { try { <s> metrics </s> . <s> requests </s> . <s> mark </s> ( ) ; <t> long <s> page aligned pos </s> </t> = <s> position </s> & <s> alignment mask </s> ; <t> <s> buffer </s> <s> buf </s> </t> ; do <s> buf </s> = <s> cache </s> . <s> get </s> ( new <s> key </s> ( <s> source </s> , <s> page aligned pos </s> ) ) . <s> reference </s> ( ) ; while ( <s> buf </s> == null ) ; return <s> buf </s> ; } catch ( <t> <s> throwable </s> <s> t </s> </t> ) { <s> throwables </s> . <s> propagate if instance of </s> ( <s> t </s> . <s> get cause </s> ( ) , <s> corrupt ss table exception </s> . class ) ; throw <s> throwables </s> . <s> propagate </s> ( <s> t </s> ) ; } } _eos_
+rebuffer _eos_
+get _eos_ _eos_
+
+<s> buffer </s> ( ) { <t> int <s> ref count </s> </t> ; do { <s> ref count </s> = <s> references </s> . <s> get </s> ( ) ; if ( <s> ref count </s> == 0 ) return null ; } while ( ! <s> references </s> . <s> compare and set </s> ( <s> ref count </s> , <s> ref count </s> + 1 ) ) ; return this ; } _eos_
+reference _eos_
+get reference _eos_
+
+@ <s> override </s> public <s> string </s> ( ) { return <s> " caching _unk </s> + <s> source </s> ; } _eos_
+to string _eos_
+to string _eos_
+
+public <s> byte buffer </s> ( ) { return <s> byte buffer </s> . <s> wrap </s> ( <s> partition key </s> ) ; } _eos_
+partition key _eos_
+get _eos_ _eos_
+
+public void ( ) { <s> map </s> . <s> clear </s> ( ) ; <s> metrics </s> = new <s> cache metrics </s> ( <s> type </s> , <s> map </s> ) ; } _eos_
+clear _eos_
+clear _eos_
+
+public <s> v </s> ( <t> <s> k </s> <s> key </s> </t> ) { <t> <s> v </s> <s> v </s> </t> = <s> map </s> . <s> get </s> ( <s> key </s> ) ; <s> metrics </s> . <s> requests </s> . <s> mark </s> ( ) ; if ( <s> v </s> != null ) <s> metrics </s> . <s> hits </s> . <s> mark </s> ( ) ; return <s> v </s> ; } _eos_
+get _eos_
+get _eos_
+
+public ( <t> <s> table metadata </s> <s> table metadata </s> </t> , <t> <s> descriptor </s> <s> desc </s> </t> , <t> <s> byte buffer </s> <s> key </s> </t> ) { super ( <s> table metadata </s> ) ; this . <s> desc </s> = <s> desc </s> ; this . <s> key </s> = <s> byte buffer util </s> . <s> get array </s> ( <s> key </s> ) ; assert this . <s> key </s> != null ; } _eos_
+key cache key _eos_
+table table _eos_ _eos_
+
+@ <s> override </s> public int ( ) { <t> int <s> result </s> </t> = <s> table id </s> . <s> hash code </s> ( ) ; <s> result </s> = 31 * <s> result </s> + <s> objects </s> . <s> hash code </s> ( <s> index name </s> ) ; <s> result </s> = 31 * <s> result </s> + <s> desc </s> . <s> hash code </s> ( ) ; <s> result </s> = 31 * <s> result </s> + <s> arrays </s> . <s> hash code </s> ( <s> key </s> ) ; return <s> result </s> ; } _eos_
+hash code _eos_
+hash code _eos_
+
+public <s> string </s> ( ) { return <s> string </s> . <s> format </s> ( <s> " key cache _unk %s)" </s> , <s> desc </s> , <s> byte buffer util </s> . <s> bytes to hex </s> ( <s> byte buffer </s> . <s> wrap </s> ( <s> key </s> ) ) ) ; } _eos_
+to string _eos_
+to string _eos_
+
+public long ( ) { return 0 ; } _eos_
+capacity _eos_
+get _eos_ _eos_
+
+public <s> i row cache entry </s> ( <t> <s> row cache key </s> <s> key </s> </t> ) { return null ; } _eos_
+get _eos_
+get _eos_
+
+public void ( ) { if ( <s> updater </s> . <s> decrement and get </s> ( this ) == 0 ) super . <s> free </s> ( ) ; } _eos_
+unreference _eos_
+free _eos_
+
+@ <s> override </s> public boolean ( <t> <s> object </s> <s> o </s> </t> ) { if ( this == <s> o </s> ) return true ; if ( <s> o </s> == null || <s> get class </s> ( ) != <s> o </s> . <s> get class </s> ( ) ) return false ; <t> <s> row cache key </s> <s> that </s> </t> = ( <s> row cache key </s> ) <s> o </s> ; return <s> table id </s> . <s> equals </s> ( <s> that </s> . <s> table id </s> ) && <s> objects </s> . <s> equals </s> ( <s> index name </s> , <s> that </s> . <s> index name </s> ) && <s> arrays </s> . <s> equals </s> ( <s> key </s> , <s> that </s> . <s> key </s> ) ; } _eos_
+equals _eos_
+equals _eos_
+
+@ <s> suppress warnings </s> ( "resource" ) public <s> v </s> ( <t> <s> k </s> <s> key </s> </t> ) { <t> <s> ref counted memory </s> <s> mem </s> </t> = <s> cache </s> . <s> get if present </s> ( <s> key </s> ) ; if ( <s> mem </s> == null ) return null ; if ( ! <s> mem </s> . <s> reference </s> ( ) ) return null ; try { return <s> deserialize </s> ( <s> mem </s> ) ; } finally { <s> mem </s> . <s> unreference </s> ( ) ; } } _eos_
+get _eos_
+get _eos_
+
+public boolean ( ) { return <s> cache </s> . <s> as map </s> ( ) . <s> is empty </s> ( ) ; } _eos_
+is empty _eos_
+is empty _eos_
+
+public <s> i cache </s> < <s> row cache key </s> , <s> i row cache entry </s> > ( ) { return <s> serializing cache </s> . <s> create </s> ( <s> database descriptor </s> . <s> get row cache size in mb </s> ( ) * 1024 * 1024 , new <s> row cache serializer </s> ( ) ) ; } _eos_
+create _eos_
+get row cache _eos_
+
+public void ( <t> <s> i row cache entry </s> <s> entry </s> </t> , <t> <s> data output plus </s> <s> out </s> </t> ) throws <s> io exception </s> { assert <s> entry </s> != null ; <t> boolean <s> is sentinel </s> </t> = <s> entry </s> instanceof <s> row cache sentinel </s> ; <s> out </s> . <s> write boolean </s> ( <s> is sentinel </s> ) ; if ( <s> is sentinel </s> ) <s> out </s> . <s> write long </s> ( ( ( <s> row cache sentinel </s> ) <s> entry </s> ) . <s> sentinel id </s> ) ; else <s> cached partition </s> . <s> cache serializer </s> . <s> serialize </s> ( ( <s> cached partition </s> ) <s> entry </s> , <s> out </s> ) ; } _eos_
+serialize _eos_
+serialize _eos_
+
+public ( <t> <s> runnable </s> <s> runnable </s> </t> , <t> <s> t </s> <s> result </s> </t> , <t> <s> executor locals </s> <s> locals </s> </t> ) { super ( <s> runnable </s> , <s> result </s> ) ; this . <s> locals </s> = <s> locals </s> ; } _eos_
+local session future task _eos_
+abstract executor _eos_ _eos_
+
+public boolean ( <t> boolean <s> may interrupt if running </s> </t> ) { return false ; } _eos_
+cancel _eos_
+cancel _eos_
+
+private < <s> t </s> > <s> future task </s> < <s> t </s> > ( <t> <s> future task </s> < <s> t </s> > <s> task </s> </t> ) { <s> add task </s> ( <s> task </s> ) ; return <s> task </s> ; } _eos_
+submit _eos_
+add task _eos_
+
+public ( <t> int <s> core pool size </s> </t> , <t> int <s> maximum pool size </s> </t> , <t> long <s> keep alive time </s> </t> , <t> <s> time unit </s> <s> unit </s> </t> , <t> <s> blocking queue </s> < <s> runnable </s> > <s> work queue </s> </t> , <t> <s> thread factory </s> <s> thread factory </s> </t> ) { super ( <s> core pool size </s> , <s> maximum pool size </s> , <s> keep alive time </s> , <s> unit </s> , <s> work queue </s> , <s> thread factory </s> ) ; <s> allow core thread time out </s> ( true ) ; this . <s> set rejected execution handler </s> ( <s> blocking execution handler </s> ) ; } _eos_
+debuggable thread pool executor _eos_
+core thread executor _eos_
+
+@ <s> override </s> protected void ( <t> <s> runnable </s> <s> r </s> </t> , <t> <s> throwable </s> <s> t </s> </t> ) { super . <s> after execute </s> ( <s> r </s> , <s> t </s> ) ; <s> maybe reset trace session wrapper </s> ( <s> r </s> ) ; <s> log exceptions after execute </s> ( <s> r </s> , <s> t </s> ) ; } _eos_
+after execute _eos_
+after execute _eos_
+
+private ( <t> <s> trace state </s> <s> trace state </s> </t> , <s> client warn </s> . <t> <s> state </s> <s> client warn state </s> </t> ) { this . <s> trace state </s> = <s> trace state </s> ; this . <s> client warn state </s> = <s> client warn state </s> ; } _eos_
+executor locals _eos_
+client state _eos_ _eos_
+
+public static void ( <t> <s> executor locals </s> <s> locals </s> </t> ) { <t> <s> trace state </s> <s> trace state </s> </t> = <s> locals </s> == null ? null : <s> locals </s> . <s> trace state </s> ; <s> client warn </s> . <t> <s> state </s> <s> client warn state </s> </t> = <s> locals </s> == null ? null : <s> locals </s> . <s> client warn state </s> ; <s> tracing </s> . <s> set </s> ( <s> trace state </s> ) ; <s> client warn </s> . <s> set </s> ( <s> client warn state </s> ) ; } _eos_
+set _eos_
+set client trace _eos_
+
+public int ( ) { return ( int ) <s> metrics </s> . <s> total blocked </s> . <s> get count </s> ( ) ; } _eos_
+get total blocked tasks _eos_
+get total total _eos_
+
+public static <s> thread </s> ( <t> <s> thread group </s> <s> thread group </s> </t> , <t> <s> runnable </s> <s> runnable </s> </t> , <t> <s> string </s> <s> name </s> </t> , <t> boolean <s> daemon </s> </t> ) { <t> <s> thread </s> <s> thread </s> </t> = new <s> fast thread local thread </s> ( <s> thread group </s> , <s> thread local deallocator </s> ( <s> runnable </s> ) , <s> name </s> ) ; <s> thread </s> . <s> set daemon </s> ( <s> daemon </s> ) ; return <s> thread </s> ; } _eos_
+create thread _eos_
+new thread _eos_
+
+public boolean ( ) { return <s> shutting down </s> && <s> shutdown </s> . <s> is signaled </s> ( ) ; } _eos_
+is terminated _eos_
+is shutdown _eos_
+
+private void ( ) { <t> long <s> sleep </s> </t> = <s> 10000 l </s> * <s> pool </s> . <s> spinning count </s> . <s> get </s> ( ) ; <s> sleep </s> = <s> math </s> . <s> min </s> ( 1000000 , <s> sleep </s> ) ; <s> sleep </s> *= <s> thread local random </s> . <s> current </s> ( ) . <s> next double </s> ( ) ; <s> sleep </s> = <s> math </s> . <s> max </s> ( 10000 , <s> sleep </s> ) ; <t> long <s> start </s> </t> = <s> system </s> . <s> nano time </s> ( ) ; <t> <s> long </s> <s> target </s> </t> = <s> start </s> + <s> sleep </s> ; if ( <s> pool </s> . <s> spinning </s> . <s> put if absent </s> ( <s> target </s> , this ) != null ) return ; <s> lock support </s> . <s> park nanos </s> ( <s> sleep </s> ) ; <s> pool </s> . <s> spinning </s> . <s> remove </s> ( <s> target </s> , this ) ; <t> long <s> end </s> </t> = <s> system </s> . <s> nano time </s> ( ) ; <t> long <s> spin </s> </t> = <s> end </s> - <s> start </s> ; <t> long <s> stop check </s> </t> = <s> pool </s> . <s> stop check </s> . <s> add and get </s> ( <s> spin </s> ) ; <s> maybe stop </s> ( <s> stop check </s> , <s> end </s> ) ; if ( <s> prev stop check </s> + <s> spin </s> == <s> stop check </s> ) <s> sole spinner spin time </s> += <s> spin </s> ; else <s> sole spinner spin time </s> = 0 ; <s> prev stop check </s> = <s> stop check </s> ; } _eos_
+do wait spin _eos_
+stop _eos_ _eos_
+
+boolean ( ) { return <s> assigned </s> != null ; } _eos_
+is assigned _eos_
+is assigned _eos_
+
+public <s> local aware executor service </s> ( <t> int <s> max concurrency </s> </t> , <t> int <s> max queued tasks </s> </t> , <t> <s> string </s> <s> jmx path </s> </t> , <t> <s> string </s> <s> name </s> </t> ) { <t> <s> sep executor </s> <s> executor </s> </t> = new <s> sep executor </s> ( this , <s> max concurrency </s> , <s> max queued tasks </s> , <s> jmx path </s> , <s> name </s> ) ; <s> executors </s> . <s> add </s> ( <s> executor </s> ) ; return <s> executor </s> ; } _eos_
+new executor _eos_
+new executor _eos_
+
+public static void ( ) { try { if ( <s> conf </s> . <s> data file directories </s> . <s> length </s> == 0 ) throw new <s> configuration exception </s> ( <s> " at least one data file directory must be specified" </s> , false ) ; for ( <t> <s> string </s> <s> data file directory </s> </t> : <s> conf </s> . <s> data file directories </s> ) <s> file utils </s> . <s> create directory </s> ( <s> data file directory </s> ) ; if ( <s> conf </s> . <s> commitlog directory </s> == null ) throw new <s> configuration exception </s> ( <s> "commitlog directory must be specified" </s> , false ) ; <s> file utils </s> . <s> create directory </s> ( <s> conf </s> . <s> commitlog directory </s> ) ; if ( <s> conf </s> . <s> hints directory </s> == null ) throw new <s> configuration exception </s> ( <s> "hints directory must be specified" </s> , false ) ; <s> file utils </s> . <s> create directory </s> ( <s> conf </s> . <s> hints directory </s> ) ; if ( <s> conf </s> . <s> saved caches directory </s> == null ) throw new <s> configuration exception </s> ( <s> "saved caches directory must be specified" </s> , false ) ; <s> file utils </s> . <s> create directory </s> ( <s> conf </s> . <s> saved caches directory </s> ) ; if ( <s> conf </s> . <s> cdc enabled </s> ) { if ( <s> conf </s> . <s> cdc raw directory </s> == null ) throw new <s> configuration exception </s> ( <s> _unk raw directory must be specified" </s> , false ) ; <s> file utils </s> . <s> create directory </s> ( <s> conf </s> . <s> cdc raw directory </s> ) ; } } catch ( <s> configuration<t> </s> <s> exception </s> <s> e </s> </t> ) { throw new <s> illegal argument exception </s> ( <s> " bad _unk unable to start server: " </s> + <s> e </s> . <s> get message </s> ( ) ) ; } catch ( <t> <s> fs write error </s> <s> e </s> </t> ) { throw new <s> illegal state exception </s> ( <s> e </s> . <s> get cause </s> ( ) . <s> get message </s> ( ) + <s> "; unable to start server" </s> ) ; } } _eos_
+create all directories _eos_
+create _eos_ directory
+
+public static boolean ( ) { return <s> conf </s> . <s> enable user defined functions </s> ; } _eos_
+enable user defined functions _eos_
+enable user _eos_ _eos_
+
+public static int ( ) { return <s> conf </s> . <s> credentials validity in ms </s> ; } _eos_
+get credentials validity _eos_
+get credentials validity _eos_ _eos_
+
+public static <s> file </s> ( ) { return new <s> file </s> ( <s> conf </s> . <s> hints directory </s> ) ; } _eos_
+get hints directory _eos_
+get temporary directory _eos_
+
+public static <s> i internode authenticator </s> ( ) { return <s> internode authenticator </s> ; } _eos_
+get internode authenticator _eos_
+get authenticator authenticator _eos_
+
+public static <s> config </s> . <s> memtable allocation type </s> ( ) { return <s> conf </s> . <s> memtable allocation type </s> ; } _eos_
+get memtable allocation type _eos_
+get memtable allocation type _eos_
+
+public static int ( ) { return <s> integer </s> . <s> parse int </s> ( <s> system </s> . <s> get property </s> ( <s> config </s> . <s> property prefix </s> + <s> "native transport port" </s> , <s> integer </s> . <s> to string </s> ( <s> conf </s> . <s> native transport port </s> ) ) ) ; } _eos_
+get native transport port _eos_
+get port port port
+
+public static <s> string </s> ( ) { return <s> conf </s> . <s> otc coalescing strategy </s> ; } _eos_
+get otc coalescing strategy _eos_
+get coalescing coalescing strategy _eos_
+
+public static <s> collection </s> < <s> string </s> > ( ) { return <s> tokens from string </s> ( <s> system </s> . <s> get property </s> ( <s> config </s> . <s> property prefix </s> + <s> "replace token" </s> , null ) ) ; } _eos_
+get replace tokens _eos_
+get _eos_ _eos_ _eos_
+
+public static long ( ) { return <s> conf </s> . <s> slow query log timeout in ms </s> ; } _eos_
+get slow query timeout _eos_
+get query log timeout _eos_
+
+private static <s> file store </s> ( <t> <s> string </s> <s> dir </s> </t> ) throws <s> io exception </s> { <t> <s> path </s> <s> path </s> </t> = <s> paths </s> . <s> get </s> ( <s> dir </s> ) ; while ( true ) { try { return <s> file utils </s> . <s> get file store </s> ( <s> path </s> ) ; } catch ( <t> <s> io exception </s> <s> e </s> </t> ) { if ( <s> e </s> instanceof <s> no such file exception </s> ) <s> path </s> = <s> path </s> . <s> get parent </s> ( ) ; else throw <s> e </s> ; } } } _eos_
+guess file store _eos_
+get file store _eos_
+
+@ <s> visible for testing </s> public static void ( <t> <s> back pressure strategy </s> <s> strategy </s> </t> ) { <s> back pressure strategy </s> = <s> strategy </s> ; } _eos_
+set back pressure strategy _eos_
+set back back strategy _eos_
+
+public static void ( <s> config </s> . <t> <s> internode compression </s> <s> compression </s> </t> ) { <s> conf </s> . <s> internode compression </s> = <s> compression </s> ; } _eos_
+set internode compression _eos_
+set compression compression _eos_
+
+public static void ( <t> int <s> max value size in bytes </s> </t> ) { <s> conf </s> . <s> max value size in mb </s> = <s> max value size in bytes </s> / 1024 / 1024 ; } _eos_
+set max value size _eos_
+set max value size _eos_
+
+public static boolean ( ) { return <s> conf </s> . <s> start native transport </s> ; } _eos_
+start native transport _eos_
+is native transport transport _eos_
+
+public void ( <t> <s> list </s> < <s> function </s> > <s> functions </s> </t> ) { if ( <s> timestamp </s> != null ) <s> timestamp </s> . <s> add functions to </s> ( <s> functions </s> ) ; if ( <s> time to live </s> != null ) <s> time to live </s> . <s> add functions to </s> ( <s> functions </s> ) ; } _eos_
+add functions to _eos_
+add functions to _eos_
+
+public int ( <t> <s> column identifier </s> <s> that </s> </t> ) { <t> int <s> c </s> </t> = <s> long </s> . <s> compare </s> ( this . <s> prefix comparison </s> , <s> that </s> . <s> prefix comparison </s> ) ; if ( <s> c </s> != 0 ) return <s> c </s> ; if ( this == <s> that </s> ) return 0 ; return <s> byte buffer util </s> . <s> compare unsigned </s> ( this . <s> bytes </s> , <s> that </s> . <s> bytes </s> ) ; } _eos_
+compare to _eos_
+compare to _eos_
+
+public ( <t> <s> column metadata </s> <s> column </s> </t> , <t> <s> term </s> <s> collection element </s> </t> , <t> <s> operator </s> <s> op </s> </t> , <t> <s> terms </s> <s> values </s> </t> ) { super ( <s> column </s> , <s> op </s> , <s> values </s> ) ; this . <s> collection element </s> = <s> collection element </s> ; } _eos_
+collection element condition _eos_
+range _eos_ _eos_
+
+public ( <t> <s> column metadata </s> <s> column </s> </t> , <t> <s> operator </s> <s> operator </s> </t> , <s> list </s> < <s> term </s> . <s> terminal </s> > <s> values </s> ) { super ( <s> column </s> , <s> operator </s> ) ; assert <s> column </s> . <s> type </s> . <s> is multi cell </s> ( ) ; this . <s> values </s> = <s> values </s> ; } _eos_
+multi cell collection bound _eos_
+multi expression _eos_ _eos_
+
+protected static final boolean ( <t> int <s> comparison </s> </t> , <t> <s> operator </s> <s> operator </s> </t> ) { switch ( <s> operator </s> ) { case <s> eq </s> : return false ; case <s> lt </s> : case <s> lte </s> : return <s> comparison </s> < 0 ; case <s> gt </s> : case <s> gte </s> : return <s> comparison </s> > 0 ; case <s> neq </s> : return true ; default : throw new <s> assertion error </s> ( ) ; } } _eos_
+evaluate comparison with operator _eos_
+is _eos_ _eos_
+
+private static boolean ( <s> list type </s> < ? > <s> type </s> , <t> <s> iterator </s> < <s> cell </s> > <s> iter </s> </t> , <t> <s> list </s> < <s> byte buffer </s> > <s> elements </s> </t> , <t> <s> operator </s> <s> operator </s> </t> ) { return <s> set or list applies to </s> ( <s> type </s> . <s> get elements type </s> ( ) , <s> iter </s> , <s> elements </s> . <s> iterator </s> ( ) , <s> operator </s> , false ) ; } _eos_
+list applies to _eos_
+set all list _eos_ _eos_
+
+private <s> byte buffer </s> ( <s> list type </s> < ? > <s> type </s> , <t> <s> row </s> <s> row </s> </t> ) { if ( <s> column </s> . <s> type </s> . <s> is multi cell </s> ( ) ) return <s> cell value at index </s> ( <s> get cells </s> ( <s> row </s> , <s> column </s> ) , <s> get list index </s> ( <s> collection element </s> ) ) ; <t> <s> cell </s> <s> cell </s> </t> = <s> get cell </s> ( <s> row </s> , <s> column </s> ) ; return <s> cell </s> == null ? null : <s> type </s> . <s> get serializer </s> ( ) . <s> get element </s> ( <s> cell </s> . <s> value </s> ( ) , <s> get list index </s> ( <s> collection element </s> ) ) ; } _eos_
+row list value _eos_
+get value _eos_ _eos_
+
+@ <s> override </s> public <s> string </s> ( ) { return <s> to string builder </s> . <s> reflection to string </s> ( this , <s> to string style </s> . <s> short prefix style </s> ) ; } _eos_
+to string _eos_
+to string _eos_
+
+private void ( <s> abstract type </s> < ? > <s> type </s> ) { if ( <s> type </s> . <s> references duration </s> ( ) && <s> operator </s> . <s> is slice </s> ( ) ) { <s> check false </s> ( <s> type </s> . <s> is collection </s> ( ) , <s> " slice conditions are not supported on collections containing durations" </s> ) ; <s> check false </s> ( <s> type </s> . <s> is tuple </s> ( ) , <s> " slice conditions are not supported on tuples containing durations" </s> ) ; <s> check false </s> ( <s> type </s> . <s> is udt </s> ( ) , <s> " slice conditions are not supported on ud ts containing durations" </s> ) ; throw <s> invalid request </s> ( <s> " slice conditions ( %s ) are not supported on durations" </s> , <s> operator </s> ) ; } } _eos_
+validate operation on durations _eos_
+check _eos_ _eos_ _eos_
+
+@ <s> override </s> public void ( <t> <s> cql3 cas request </s> <s> request </s> </t> , <t> <s> clustering </s> <s> clustering </s> </t> , <t> <s> query options </s> <s> options </s> </t> ) { <s> request </s> . <s> add not exist </s> ( <s> clustering </s> ) ; } _eos_
+add conditions to _eos_
+add _eos_
+
+private ( <t> <s> type </s> <s> type </s> </t> , <t> <s> string </s> <s> text </s> </t> ) { assert <s> type </s> != null && <s> text </s> != null ; this . <s> type </s> = <s> type </s> ; this . <s> text </s> = <s> text </s> ; this . <s> prefered type </s> = <s> type </s> . <s> get prefered type for </s> ( <s> text </s> ) ; } _eos_
+literal _eos_
+type type _eos_
+
+public ( <t> <s> byte buffer </s> <s> bytes </s> </t> ) { this . <s> bytes </s> = <s> bytes </s> ; } _eos_
+value _eos_
+byte buffer _eos_ _eos_
+
+public static <s> literal </s> ( <t> <s> string </s> <s> text </s> </t> ) { return new <s> literal </s> ( <s> type </s> . <s> float </s> , <s> text </s> ) ; } _eos_
+floating point _eos_
+from _eos_ _eos_
+
+@ <s> override </s> public <s> assignment testable </s> . <s> test result </s> ( <t> <s> string </s> <s> keyspace </s> </t> , <t> <s> column specification </s> <s> receiver </s> </t> ) { <t> <s> cql3 type </s> <s> receiver type </s> </t> = <s> receiver </s> . <s> type </s> . <s> as cql3 type </s> ( ) ; if ( <s> receiver type </s> . <s> is collection </s> ( ) || <s> receiver type </s> . <s> is udt </s> ( ) ) return <s> assignment testable </s> . <s> test result </s> . <s> not assignable </s> ; if ( ! ( <s> receiver type </s> instanceof <s> cql3 type </s> . <s> native </s> ) ) return <s> assignment testable </s> . <s> test result </s> . <s> weakly assignable </s> ; <s> cql3 type </s> . <t> <s> native </s> <s> nt </s> </t> = ( <s> cql3 type </s> . <s> native </s> ) <s> receiver type </s> ; if ( <s> nt </s> . <s> get type </s> ( ) . <s> equals </s> ( <s> prefered type </s> ) ) return <s> assignment testable </s> . <s> test result </s> . <s> exact match </s> ; switch ( <s> type </s> ) { case <s> string </s> : switch ( <s> nt </s> ) { case <s> ascii </s> : case <s> text </s> : case <s> inet </s> : case <s> varchar </s> : case <s> date </s> : case <s> time </s> : case <s> timestamp </s> : return <s> assignment testable </s> . <s> test result </s> . <s> weakly assignable </s> ; } break ; case <s> integer </s> : switch ( <s> nt </s> ) { case <s> bigint </s> : case <s> counter </s> : case <s> date </s> : case <s> decimal </s> : case <s> double </s> : case <s> duration </s> : case <s> float </s> : case <s> int </s> : case <s> smallint </s> : case <s> time </s> : case <s> timestamp </s> : case <s> tinyint </s> : case <s> varint </s> : return <s> assignment testable </s> . <s> test result </s> . <s> weakly assignable </s> ; } break ; case <s> uuid </s> : switch ( <s> nt </s> ) { case <s> uuid </s> : case <s> timeuuid </s> : return <s> assignment testable </s> . <s> test result </s> . <s> weakly assignable </s> ; } break ; case <s> float </s> : switch ( <s> nt </s> ) { case <s> decimal </s> : case <s> double </s> : case <s> float </s> : return <s> assignment testable </s> . <s> test result </s> . <s> weakly assignable </s> ; } break ; case <s> boolean </s> : switch ( <s> nt </s> ) { case <s> boolean </s> : return <s> assignment testable </s> . <s> test result </s> . <s> weakly assignable </s> ; } break ; case <s> hex </s> : switch ( <s> nt </s> ) { case <s> blob </s> : return <s> assignment testable </s> . <s> test result </s> . <s> weakly assignable </s> ; } break ; case <s> duration </s> : switch ( <s> nt </s> ) { case <s> duration </s> : return <s> assignment testable </s> . <s> test result </s> . <s> weakly assignable </s> ; } break ; } return <s> assignment testable </s> . <s> test result </s> . <s> not assignable </s> ; } _eos_
+test assignment _eos_
+get _eos_ _eos_
+
+@ <s> override </s> public <s> string </s> ( ) { return <s> byte buffer util </s> . <s> bytes to hex </s> ( <s> bytes </s> ) ; } _eos_
+to string _eos_
+to string _eos_
+
+public ( <t> <s> collection type </s> <s> type </s> </t> ) { this . <s> type </s> = <s> type </s> ; } _eos_
+collection _eos_
+collection type _eos_ _eos_
+
+public static <s> raw </s> ( <s> cql3 type </s> . <t> <s> raw </s> <s> t </s> </t> ) { return new <s> raw collection </s> ( <s> collection type </s> . <s> kind </s> . <s> list </s> , null , <s> t </s> ) ; } _eos_
+list _eos_
+to _eos_ _eos_
+
+public static < <s> r </s> > <s> r </s> ( <t> <s> cql parser function </s> < <s> r </s> > <s> parser function </s> </t> , <t> <s> string </s> <s> input </s> </t> , <t> <s> string </s> <s> meaning </s> </t> ) { try { return <s> parse any unhandled </s> ( <s> parser function </s> , <s> input </s> ) ; } catch ( <t> <s> runtime exception </s> <s> re </s> </t> ) { throw new <s> syntax exception </s> ( <s> string </s> . <s> format </s> ( <s> " failed parsing %s: [%s] reason: %s %s" </s> , <s> meaning </s> , <s> input </s> , <s> re </s> . <s> get class </s> ( ) . <s> get simple name </s> ( ) , <s> re </s> . <s> get message </s> ( ) ) ) ; } catch ( <t> <s> recognition exception </s> <s> e </s> </t> ) { throw new <s> syntax exception </s> ( <s> " invalid or malformed " </s> + <s> meaning </s> + <s> ": " </s> + <s> e </s> . <s> get message </s> ( ) ) ; } } _eos_
+parse any _eos_
+parse _eos_ _eos_
+
+private ( <t> int <s> months </s> </t> , <t> int <s> days </s> </t> , <t> long <s> nanoseconds </s> </t> ) { assert ( <s> months </s> >= 0 && <s> days </s> >= 0 && <s> nanoseconds </s> >= 0 ) || ( ( <s> months </s> <= 0 && <s> days </s> <= 0 && <s> nanoseconds </s> <= 0 ) ) ; this . <s> months </s> = <s> months </s> ; this . <s> days </s> = <s> days </s> ; this . <s> nanoseconds </s> = <s> nanoseconds </s> ; } _eos_
+duration _eos_
+time _eos_ _eos_
+
+public <s> builder </s> ( <t> long <s> number of years </s> </t> ) { <s> validate order </s> ( 1 ) ; <s> validate months </s> ( <s> number of years </s> , <s> months per year </s> ) ; <s> months </s> += <s> number of years </s> * <s> months per year </s> ; return this ; } _eos_
+add years _eos_
+set year year _eos_
+
+@ <s> override </s> public boolean ( <t> <s> object </s> <s> obj </s> </t> ) { if ( ! ( <s> obj </s> instanceof <s> duration </s> ) ) return false ; <t> <s> duration </s> <s> other </s> </t> = ( <s> duration </s> ) <s> obj </s> ; return <s> days </s> == <s> other </s> . <s> days </s> && <s> months </s> == <s> other </s> . <s> months </s> && <s> nanoseconds </s> == <s> other </s> . <s> nanoseconds </s> ; } _eos_
+equals _eos_
+equals _eos_
+
+private static <s> duration </s> ( <t> boolean <s> is negative </s> </t> , <t> <s> string </s> <s> source </s> </t> ) { <t> <s> matcher </s> <s> matcher </s> </t> = <s> standard pattern </s> . <s> matcher </s> ( <s> source </s> ) ; if ( ! <s> matcher </s> . <s> find </s> ( ) ) throw <s> invalid request </s> ( <s> " unable to convert '%s' to a duration" </s> , <s> source </s> ) ; <t> <s> builder </s> <s> builder </s> </t> = new <s> builder </s> ( <s> is negative </s> ) ; <t> boolean <s> done </s> </t> = false ; do { <t> long <s> number </s> </t> = <s> group as long </s> ( <s> matcher </s> , 1 ) ; <t> <s> string </s> <s> symbol </s> </t> = <s> matcher </s> . <s> group </s> ( 2 ) ; <s> add </s> ( <s> builder </s> , <s> number </s> , <s> symbol </s> ) ; <s> done </s> = <s> matcher </s> . <s> end </s> ( ) == <s> source </s> . <s> length </s> ( ) ; } while ( <s> matcher </s> . <s> find </s> ( ) ) ; if ( ! <s> done </s> ) throw <s> invalid request </s> ( <s> " unable to convert '%s' to a duration" </s> , <s> source </s> ) ; return <s> builder </s> . <s> build </s> ( ) ; } _eos_
+parse standard format _eos_
+convert to _eos_
+
+private void ( <t> long <s> units </s> </t> , <t> long <s> limit </s> </t> , <t> <s> string </s> <s> unit name </s> </t> ) { <s> check true </s> ( <s> units </s> <= <s> limit </s> , <s> " invalid duration. the total number of %s must be less or equal to %s" </s> , <s> unit name </s> , <s> integer </s> . <s> max value </s> ) ; } _eos_
+validate _eos_
+assert limit _eos_ _eos_
+
+private void ( <t> <s> parser </s> <s> parser </s> </t> , <t> <s> string builder </s> <s> builder </s> </t> ) { <t> <s> token stream </s> <s> token stream </s> </t> = <s> parser </s> . <s> get token stream </s> ( ) ; <t> int <s> index </s> </t> = <s> token stream </s> . <s> index </s> ( ) ; <t> int <s> size </s> </t> = <s> token stream </s> . <s> size </s> ( ) ; <t> <s> token </s> <s> from </s> </t> = <s> token stream </s> . <s> get </s> ( <s> get snippet first token index </s> ( <s> index </s> ) ) ; <t> <s> token </s> <s> to </s> </t> = <s> token stream </s> . <s> get </s> ( <s> get snippet last token index </s> ( <s> index </s> , <s> size </s> ) ) ; <t> <s> token </s> <s> offending </s> </t> = <s> token stream </s> . <s> get </s> ( <s> get offending token index </s> ( <s> index </s> , <s> size </s> ) ) ; <s> append snippet </s> ( <s> builder </s> , <s> from </s> , <s> to </s> , <s> offending </s> ) ; } _eos_
+append query snippet _eos_
+parse token _eos_ _eos_
+
+private static <s> byte buffer </s> ( <t> <s> string </s> <s> text </s> </t> ) { try { return <s> utf8 type </s> . <s> instance </s> . <s> decompose </s> ( <s> text </s> ) ; } catch ( <t> <s> marshal exception </s> <s> e </s> </t> ) { throw new <s> syntax exception </s> ( <s> string </s> . <s> format </s> ( <s> " for field name %s: %s" </s> , <s> text </s> , <s> e </s> . <s> get message </s> ( ) ) ) ; } } _eos_
+convert _eos_
+get _eos_ _eos_
+
+@ <s> override </s> public <s> string </s> ( ) { <t> <s> string builder </s> <s> sb </s> </t> = new <s> string builder </s> ( ) ; <s> sb </s> . <s> append </s> ( <s> name </s> ) . <s> append </s> ( <s> " : (" </s> ) ; for ( <t> int <s> i </s> </t> = 0 ; <s> i </s> < <s> arg types </s> . <s> size </s> ( ) ; <s> i </s> ++ ) { if ( <s> i </s> > 0 ) <s> sb </s> . <s> append </s> ( <s> ", " </s> ) ; <s> sb </s> . <s> append </s> ( <s> arg types </s> . <s> get </s> ( <s> i </s> ) . <s> as cql3 type </s> ( ) ) ; } <s> sb </s> . <s> append </s> ( <s> ") -> " </s> ) . <s> append </s> ( <s> return type </s> . <s> as cql3 type </s> ( ) ) ; return <s> sb </s> . <s> to string </s> ( ) ; } _eos_
+to string _eos_
+to string _eos_
+
+@ <s> override </s> public <s> string </s> ( <t> <s> list </s> < <s> string </s> > <s> column names </s> </t> ) { return "count" ; } _eos_
+column name _eos_
+get column _eos_ _eos_
+
+public static <s> function </s> ( <s> abstract type </s> < ? > <s> from type </s> ) { <t> <s> string </s> <s> name </s> </t> = <s> from type </s> . <s> as cql3 type </s> ( ) + _unk ; return new <s> native scalar function </s> ( <s> name </s> , <s> bytes type </s> . <s> instance </s> , <s> from type </s> ) { public <s> byte buffer </s> <s> execute </s> ( <t> <s> protocol version </s> <s> protocol version </s> </t> , <t> <s> list </s> < <s> byte buffer </s> > <s> parameters </s> </t> ) { return <s> parameters </s> . <s> get </s> ( 0 ) ; } } ; } _eos_
+make to blob function _eos_
+get function _eos_ _eos_
+
+protected ( <t> <s> abstract type </s> < <s> o </s> > <s> output type </s> </t> , <s> java </s> . <s> util </s> . <s> function </s> . <t> <s> function </s> < <s> long </s> , <s> o </s> > <s> converter </s> </t> ) { super ( <s> counter column type </s> . <s> instance </s> , <s> output type </s> , <s> converter </s> ) ; } _eos_
+java counter function wrapper _eos_
+counter counter _eos_ _eos_
+
+@ <s> override </s> public <s> string </s> ( <t> <s> list </s> < <s> string </s> > <s> column names </s> </t> ) { return <s> string </s> . <s> format </s> ( <s> _unk as %s)" </s> , <s> column names </s> . <s> get </s> ( 0 ) , <s> to lower case string </s> ( <s> output type </s> ( ) . <s> as cql3 type </s> ( ) ) ) ; } _eos_
+column name _eos_
+get string _eos_
+
+@ <s> suppress warnings </s> ( "unchecked" ) private static < <s> o </s> , <s> i </s> > <s> function </s> ( <t> <s> abstract type </s> < <s> i </s> > <s> input type </s> </t> , <t> <s> abstract type </s> < <s> o </s> > <s> output type </s> </t> , <s> java </s> . <s> util </s> . <s> function </s> . <t> <s> function </s> < <s> i </s> , <s> o </s> > <s> converter </s> </t> ) { return <s> input type </s> . <s> equals </s> ( <s> counter column type </s> . <s> instance </s> ) ? <s> java counter function wrapper </s> . <s> create </s> ( <s> output type </s> , ( <s> java </s> . <s> util </s> . <s> function </s> . <s> function </s> < <s> long </s> , <s> o </s> > ) <s> converter </s> ) : <s> java function wrapper </s> . <s> create </s> ( <s> input type </s> , <s> output type </s> , <s> converter </s> ) ; } _eos_
+wrap java function _eos_
+create function _eos_
+
+public <s> byte buffer </s> ( <t> <s> protocol version </s> <s> protocol version </s> </t> , <t> <s> list </s> < <s> byte buffer </s> > <s> parameters </s> </t> ) { assert <s> parameters </s> . <s> size </s> ( ) == 1 : <s> " unexpectedly got " </s> + <s> parameters </s> . <s> size </s> ( ) + <s> " arguments for from _unk </s> ; <t> <s> byte buffer </s> <s> argument </s> </t> = <s> parameters </s> . <s> get </s> ( 0 ) ; if ( <s> argument </s> == null ) return null ; <t> <s> string </s> <s> json arg </s> </t> = <s> utf8 type </s> . <s> instance </s> . <s> get serializer </s> ( ) . <s> deserialize </s> ( <s> argument </s> ) ; try { <t> <s> object </s> <s> object </s> </t> = <s> json </s> . <s> json object mapper </s> . <s> read value </s> ( <s> json arg </s> , <s> object </s> . class ) ; if ( <s> object </s> == null ) return null ; return <s> return type </s> . <s> from json object </s> ( <s> object </s> ) . <s> bind and get </s> ( <s> query options </s> . <s> for protocol version </s> ( <s> protocol version </s> ) ) ; } catch ( <t> <s> io exception </s> <s> exc </s> </t> ) { throw new <s> function execution exception </s> ( <s> name </s> , <s> collections </s> . <s> singleton list </s> ( "text" ) , <s> string </s> . <s> format </s> ( <s> " could not decode json string '%s': %s" </s> , <s> json arg </s> , <s> exc </s> . <s> to string </s> ( ) ) ) ; } catch ( <t> <s> marshal exception </s> <s> exc </s> </t> ) { throw <s> function execution exception </s> . <s> create </s> ( this , <s> exc </s> ) ; } } _eos_
+execute _eos_
+deserialize _eos_
+
+@ <s> override </s> public <s> string </s> ( ) { return <s> keyspace </s> == null ? <s> name </s> : <s> keyspace </s> + "." + <s> name </s> ; } _eos_
+to string _eos_
+to string _eos_
+
+private static boolean ( <s> list </s> < ? extends <s> assignment testable </s> > <s> args </s> ) { return <s> args </s> . <s> stream </s> ( ) . <s> any match </s> ( <s> abstract marker </s> . <s> raw </s> . class :: <s> is instance </s> ) ; } _eos_
+contains markers _eos_
+is _eos_ _eos_ _eos_
+
+( ) { super ( <s> ud function </s> . <s> udf class loader </s> ) ; } _eos_
+ecj target class loader _eos_
+java class _eos_ _eos_
+
+protected <s> permission collection </s> ( <t> <s> code source </s> <s> _unk </s> </t> ) { return <s> thread aware security manager </s> . <s> no permissions </s> ; } _eos_
+get permissions _eos_
+get permission _eos_ _eos_
+
+public final boolean ( ) { return true ; } _eos_
+is aggregate _eos_
+is _eos_ _eos_
+
+public static <s> collection </s> < <s> function </s> > ( ) { <t> <s> list </s> < <s> function </s> > <s> functions </s> </t> = new <s> array list </s> < > ( ) ; final <s> number type </s> < ? > <s> [] </s> <s> numeric types </s> = new <s> number type[] </s> { <s> byte type </s> . <s> instance </s> , <s> short type </s> . <s> instance </s> , <s> int32 type </s> . <s> instance </s> , <s> long type </s> . <s> instance </s> , <s> float type </s> . <s> instance </s> , <s> double type </s> . <s> instance </s> , <s> decimal type </s> . <s> instance </s> , <s> integer type </s> . <s> instance </s> , <s> counter column type </s> . <s> instance </s> } ; for ( <s> number type </s> < ? > <s> left </s> : <s> numeric types </s> ) { for ( <s> number type </s> < ? > <s> right </s> : <s> numeric types </s> ) { <s> number type </s> < ? > <s> return type </s> = <s> return type </s> ( <s> left </s> , <s> right </s> ) ; for ( <t> <s> operation </s> <s> operation </s> </t> : <s> operation </s> . <s> values </s> ( ) ) <s> functions </s> . <s> add </s> ( new <s> numeric operation function </s> ( <s> return type </s> , <s> left </s> , <s> operation </s> , <s> right </s> ) ) ; } <s> functions </s> . <s> add </s> ( new <s> numeric negation function </s> ( <s> left </s> ) ) ; } for ( <t> <s> operation </s> <s> operation </s> </t> : new <s> _unk n[] </s> { <s> operation </s> . <s> addition </s> , <s> operation </s> . <s> _unk </s> } ) { <s> functions </s> . <s> add </s> ( new <s> temporal operation function </s> ( <s> timestamp type </s> . <s> instance </s> , <s> operation </s> ) ) ; <s> functions </s> . <s> add </s> ( new <s> temporal operation function </s> ( <s> simple date type </s> . <s> instance </s> , <s> operation </s> ) ) ; } return <s> functions </s> ; } _eos_
+all _eos_
+get _eos_ _eos_
+
+public static <s> operation </s> ( <t> <s> string </s> <s> function name </s> </t> ) { for ( <t> <s> operation </s> <s> operator </s> </t> : <s> values </s> ( ) ) { if ( <s> operator </s> . <s> function name </s> . <s> equals </s> ( <s> function name </s> ) ) return <s> operator </s> ; } return null ; } _eos_
+from function name _eos_
+get function _eos_
+
+private static <s> number type </s> < ? > ( <t> int <s> size </s> </t> ) { switch ( <s> size </s> ) { case 1 : return <s> byte type </s> . <s> instance </s> ; case 2 : return <s> short type </s> . <s> instance </s> ; case 4 : return <s> int32 type </s> . <s> instance </s> ; case 8 : return <s> long type </s> . <s> instance </s> ; default : return <s> integer type </s> . <s> instance </s> ; } } _eos_
+integer type _eos_
+get type _eos_
+
+public <s> byte buffer </s> ( <t> <s> protocol version </s> <s> protocol version </s> </t> , <t> <s> list </s> < <s> byte buffer </s> > <s> parameters </s> </t> ) throws <s> invalid request exception </s> { <t> <s> c builder </s> <s> builder </s> </t> = <s> c builder </s> . <s> create </s> ( <s> metadata </s> . <s> partition key as clustering comparator </s> ( ) ) ; for ( <t> int <s> i </s> </t> = 0 ; <s> i </s> < <s> parameters </s> . <s> size </s> ( ) ; <s> i </s> ++ ) { <t> <s> byte buffer </s> <s> bb </s> </t> = <s> parameters </s> . <s> get </s> ( <s> i </s> ) ; if ( <s> bb </s> == null ) return null ; <s> builder </s> . <s> add </s> ( <s> bb </s> ) ; } return <s> metadata </s> . <s> partitioner </s> . <s> get token factory </s> ( ) . <s> to byte array </s> ( <s> metadata </s> . <s> partitioner </s> . <s> get token </s> ( <s> builder </s> . <s> build </s> ( ) . <s> serialize as partition key </s> ( ) ) ) ; } _eos_
+execute _eos_
+get _eos_ _eos_
+
+public <s> scalar function </s> ( ) { return <s> final function </s> ; } _eos_
+final function _eos_
+get function function _eos_
+
+public <s> set </s> < <s> string </s> > ( <t> <s> string </s> <s> cls name </s> </t> , <t> <s> byte[] </s> <s> bytes </s> </t> ) { <t> <s> string </s> <s> cls name sl </s> </t> = <s> cls name </s> . <s> replace </s> ( '.' , '/' ) ; <t> <s> set </s> < <s> string </s> > <s> errors </s> </t> = new <s> tree set </s> < > ( ) ; <t> <s> class visitor </s> <s> class visitor </s> </t> = new <s> class visitor </s> ( <s> opcodes </s> . asm5 ) { public <s> field visitor </s> <s> visit field </s> ( <t> int <s> access </s> </t> , <t> <s> string </s> <s> name </s> </t> , <t> <s> string </s> <s> desc </s> </t> , <t> <s> string </s> <s> signature </s> </t> , <t> <s> object </s> <s> value </s> </t> ) { <s> errors </s> . <s> add </s> ( <s> "field declared: " </s> + <s> name </s> ) ; return null ; } public <s> method visitor </s> <s> visit method </s> ( <t> int <s> access </s> </t> , <t> <s> string </s> <s> name </s> </t> , <t> <s> string </s> <s> desc </s> </t> , <t> <s> string </s> <s> signature </s> </t> , <t> <s> string[] </s> <s> exceptions </s> </t> ) { if ( "<init>" . <s> equals </s> ( <s> name </s> ) && <s> ctor sig </s> . <s> equals </s> ( <s> desc </s> ) ) { if ( <s> opcodes </s> . <s> acc public </s> != <s> access </s> ) <s> errors </s> . <s> add </s> ( <s> "constructor not public" </s> ) ; return new <s> constructor visitor </s> ( <s> errors </s> ) ; } if ( <s> "execute impl" </s> . <s> equals </s> ( <s> name </s> ) && <s> "( _unk protocol _unk ljava/util/ _unk _unk byte _unk </s> . <s> equals </s> ( <s> desc </s> ) ) { if ( <s> opcodes </s> . <s> acc protected </s> != <s> access </s> ) <s> errors </s> . <s> add </s> ( <s> "execute impl not protected" </s> ) ; return new <s> execute impl visitor </s> ( <s> errors </s> ) ; } if ( <s> "execute aggregate impl" </s> . <s> equals </s> ( <s> name </s> ) && <s> "( _unk protocol _unk ljava/lang/ object; ljava/util/ _unk ljava/lang/ object;" </s> . <s> equals </s> ( <s> desc </s> ) ) { if ( <s> opcodes </s> . <s> acc protected </s> != <s> access </s> ) <s> errors </s> . <s> add </s> ( <s> "execute aggregate impl not protected" </s> ) ; return new <s> execute impl visitor </s> ( <s> errors </s> ) ; } if ( "<clinit>" . <s> equals </s> ( <s> name </s> ) ) { <s> errors </s> . <s> add </s> ( <s> "static initializer declared" </s> ) ; } else { <s> errors </s> . <s> add </s> ( <s> "not allowed method declared: " </s> + <s> name </s> + <s> desc </s> ) ; return new <s> execute impl visitor </s> ( <s> errors </s> ) ; } return null ; } public void <s> visit </s> ( <t> int <s> version </s> </t> , <t> int <s> access </s> </t> , <t> <s> string </s> <s> name </s> </t> , <t> <s> string </s> <s> signature </s> </t> , <t> <s> string </s> <s> super name </s> </t> , <t> <s> string[] </s> <s> interfaces </s> </t> ) { if ( ! <s> java udf name </s> . <s> equals </s> ( <s> super name </s> ) ) { <s> errors </s> . <s> add </s> ( <s> "class does not extend " </s> + <s> java udf </s> . class . <s> get
+verify _eos_
+get _eos_ _eos_
+
+public void ( <t> <s> string </s> <s> name </s> </t> , <t> <s> string </s> <s> outer name </s> </t> , <t> <s> string </s> <s> inner name </s> </t> , <t> int <s> access </s> </t> ) { if ( <s> cls name sl </s> . <s> equals </s> ( <s> outer name </s> ) ) <s> errors </s> . <s> add </s> ( <s> "class declared as inner class" </s> ) ; super . <s> visit inner class </s> ( <s> name </s> , <s> outer name </s> , <s> inner name </s> , <s> access </s> ) ; } _eos_
+visit inner class _eos_
+visit inner class _eos_
+
+public void ( <t> int <s> opcode </s> </t> , <t> <s> string </s> <s> owner </s> </t> , <t> <s> string </s> <s> name </s> </t> , <t> <s> string </s> <s> desc </s> </t> , <t> boolean <s> itf </s> </t> ) { if ( ! ( <s> opcodes </s> . <s> invokespecial </s> == <s> opcode </s> && <s> java udf name </s> . <s> equals </s> ( <s> owner </s> ) && "<init>" . <s> equals </s> ( <s> name </s> ) && <s> ctor sig </s> . <s> equals </s> ( <s> desc </s> ) ) ) { <s> errors </s> . <s> add </s> ( <s> _unk declared" </s> ) ; } super . <s> visit method insn </s> ( <s> opcode </s> , <s> owner </s> , <s> name </s> , <s> desc </s> , <s> itf </s> ) ; } _eos_
+visit method insn _eos_
+visit method calls _eos_
+
+( <t> <s> list </s> < <s> column identifier </s> > <s> arg names </s> </t> , <t> <s> type codec </s> < <s> object </s> > <s> [] </s> <s> arg codecs </s> </t> , <t> <s> type codec </s> < <s> object </s> > <s> return codec </s> </t> , <t> <s> keyspace metadata </s> <s> keyspace metadata </s> </t> ) { for ( <t> int <s> i </s> </t> = 0 ; <s> i </s> < <s> arg names </s> . <s> size </s> ( ) ; <s> i </s> ++ ) <s> by name </s> . <s> put </s> ( <s> arg names </s> . <s> get </s> ( <s> i </s> ) . <s> to string </s> ( ) , <s> arg _unk </s> ) ; this . <s> arg codecs </s> = <s> arg codecs </s> ; this . <s> return codec </s> = <s> return codec </s> ; this . <s> keyspace metadata </s> = <s> keyspace metadata </s> ; } _eos_
+udf context impl _eos_
+column _eos_ _eos_
+
+private <s> type codec </s> < <s> object </s> > ( <t> <s> string </s> <s> arg name </s> </t> ) { <t> <s> type codec </s> < <s> object </s> > <s> codec </s> </t> = <s> by name </s> . <s> get </s> ( <s> arg name </s> ) ; if ( <s> codec </s> == null ) throw new <s> illegal argument exception </s> ( <s> " function does not declare an argument named '" </s> + <s> arg name </s> + '|'' ) ; return <s> codec </s> ; } _eos_
+codec for _eos_
+get _eos_ _eos_
+
+protected static <s> object </s> ( <t> <s> type codec </s> < <s> object </s> > <s> [] </s> <s> codecs </s> </t> , <t> <s> protocol version </s> <s> protocol version </s> </t> , <t> int <s> arg index </s> </t> , <t> <s> byte buffer </s> <s> value </s> </t> ) { return <s> value </s> == null ? null : <s> ud helper </s> . <s> deserialize </s> ( <s> _unk index] </s> , <s> protocol version </s> , <s> value </s> ) ; } _eos_
+compose _eos_
+deserialize _eos_
+
+public boolean ( ) { return false ; } _eos_
+is native _eos_
+is _eos_ _eos_
+
+public static <s> type token </s> < ? > <s> [] </s> ( <t> <s> type codec </s> < <s> object </s> > <s> [] </s> <s> data types </s> </t> , <t> boolean <s> called on null input </s> </t> ) { <s> type token </s> < ? > <s> [] </s> <s> param types </s> = new <s> type _unk types </s> . <s> length] </s> ; for ( <t> int <s> i </s> </t> = 0 ; <s> i </s> < <s> param types </s> . <s> length </s> ; <s> i </s> ++ ) { <s> type token </s> < ? > <s> type token </s> = <s> data types[i] </s> . <s> get java type </s> ( ) ; if ( ! <s> called on null input </s> ) { <s> class </s> < ? > <s> clazz </s> = <s> type token </s> . <s> get raw type </s> ( ) ; if ( <s> clazz </s> == <s> integer </s> . class ) <s> type token </s> = <s> type token </s> . <s> of </s> ( int . class ) ; else if ( <s> clazz </s> == <s> long </s> . class ) <s> type token </s> = <s> type token </s> . <s> of </s> ( long . class ) ; else if ( <s> clazz </s> == <s> byte </s> . class ) <s> type token </s> = <s> type token </s> . <s> of </s> ( byte . class ) ; else if ( <s> clazz </s> == <s> short </s> . class ) <s> type token </s> = <s> type token </s> . <s> of </s> ( short . class ) ; else if ( <s> clazz </s> == <s> float </s> . class ) <s> type token </s> = <s> type token </s> . <s> of </s> ( float . class ) ; else if ( <s> clazz </s> == <s> double </s> . class ) <s> type token </s> = <s> type token </s> . <s> of </s> ( double . class ) ; else if ( <s> clazz </s> == <s> boolean </s> . class ) <s> type token </s> = <s> type token </s> . <s> of </s> ( boolean . class ) ; } <s> param types[i] </s> = <s> type token </s> ; } return <s> param types </s> ; } _eos_
+type tokens _eos_
+get type _eos_ _eos_
+
+public ( <t> <s> map </s> < <s> column identifier </s> , <s> term </s> > <s> column map </s> </t> ) { this . <s> column map </s> = <s> column map </s> ; } _eos_
+prepared literal _eos_
+column _eos_ _eos_
+
+public <s> string </s> ( ) { return <s> marker </s> . <s> to string </s> ( ) ; } _eos_
+get text _eos_
+get marker _eos_
+
+public static void ( <t> <s> map </s> < <s> string </s> , <s> object </s> > <s> value map </s> </t> ) { for ( <t> <s> string </s> <s> map key </s> </t> : new <s> array list </s> < > ( <s> value map </s> . <s> key set </s> ( ) ) ) { if ( <s> map key </s> . <s> starts with </s> ( """ ) && <s> map key </s> . <s> ends with </s> ( """ ) ) { <s> value map </s> . <s> put </s> ( <s> map key </s> . <s> substring </s> ( 1 , <s> map key </s> . <s> length </s> ( ) - 1 ) , <s> value map </s> . <s> remove </s> ( <s> map key </s> ) ) ; continue ; } <t> <s> string </s> <s> lowered </s> </t> = <s> map key </s> . <s> to lower case </s> ( <s> locale </s> . <s> us </s> ) ; if ( ! <s> map key </s> . <s> equals </s> ( <s> lowered </s> ) ) <s> value map </s> . <s> put </s> ( <s> lowered </s> , <s> value map </s> . <s> remove </s> ( <s> map key </s> ) ) ; } } _eos_
+handle case sensitivity _eos_
+remove _eos_ _eos_
+
+public final boolean ( ) { return <s> ks name </s> != null ; } _eos_
+has keyspace _eos_
+is keyspace _eos_ _eos_
+
+( <t> long <s> millis </s> </t> , <t> int <s> nanos </s> </t> ) { this . <s> millis </s> = <s> millis </s> ; this . <s> nanos </s> = <s> nanos </s> ; } _eos_
+precision time _eos_
+time _eos_ _eos_
+
+public ( <t> <s> column metadata </s> <s> column </s> </t> , <t> <s> term </s> <s> idx </s> </t> , <t> <s> term </s> <s> t </s> </t> ) { super ( <s> column </s> , <s> t </s> ) ; this . <s> idx </s> = <s> idx </s> ; } _eos_
+setter by index _eos_
+term _eos_ _eos_
+
+public void ( <t> <s> list </s> < <s> function </s> > <s> functions </s> </t> ) { <s> terms </s> . <s> add functions </s> ( <s> elements </s> , <s> functions </s> ) ; } _eos_
+add functions to _eos_
+add functions _eos_
+
+public <s> terminal </s> ( <t> <s> query options </s> <s> options </s> </t> ) throws <s> invalid request exception </s> { <t> <s> byte buffer </s> <s> value </s> </t> = <s> options </s> . <s> get values </s> ( ) . <s> get </s> ( <s> bind index </s> ) ; if ( <s> value </s> == null ) return null ; if ( <s> value </s> == <s> byte buffer util </s> . <s> unset byte buffer </s> ) return <s> unset value </s> ; return <s> value </s> . <s> from serialized </s> ( <s> value </s> , ( <s> list type </s> ) <s> receiver </s> . <s> type </s> , <s> options </s> . <s> get protocol version </s> ( ) ) ; } _eos_
+bind _eos_
+get _eos_ _eos_
+
+public <s> string </s> ( ) { return <s> list to string </s> ( <s> elements </s> , <s> term </s> . <s> raw </s> :: <s> get text </s> ) ; } _eos_
+get text _eos_
+get text _eos_
+
+public static < <s> t </s> > <s> string </s> ( <t> <s> iterable </s> < <s> t </s> > <s> items </s> </t> , <s> java </s> . <s> util </s> . <s> function </s> . <t> <s> function </s> < <s> t </s> , <s> string </s> > <s> mapper </s> </t> ) { return <s> stream support </s> . <s> stream </s> ( <s> items </s> . <s> spliterator </s> ( ) , false ) . <s> map </s> ( <s> e </s> -> <s> mapper </s> . <s> apply </s> ( <s> e </s> ) ) . <s> collect </s> ( <s> collectors </s> . <s> joining </s> ( <s> ", " </s> , "[" , "]" ) ) ; } _eos_
+list to string _eos_
+to _eos_ _eos_
+
+public ( <t> <s> comparator </s> < <s> byte buffer </s> > <s> comparator </s> </t> , <t> <s> map </s> < <s> term </s> , <s> term </s> > <s> elements </s> </t> ) { this . <s> comparator </s> = <s> comparator </s> ; this . <s> elements </s> = <s> elements </s> ; } _eos_
+delayed value _eos_
+abstract _eos_ _eos_
+
+public void ( <t> <s> list </s> < <s> function </s> > <s> functions </s> </t> ) { <s> terms </s> . <s> add functions </s> ( <s> elements </s> . <s> key set </s> ( ) , <s> functions </s> ) ; <s> terms </s> . <s> add functions </s> ( <s> elements </s> . <s> values </s> ( ) , <s> functions </s> ) ; } _eos_
+add functions to _eos_
+add functions _eos_
+
+public <s> terminal </s> ( <t> <s> query options </s> <s> options </s> </t> ) throws <s> invalid request exception </s> { <t> <s> byte buffer </s> <s> value </s> </t> = <s> options </s> . <s> get values </s> ( ) . <s> get </s> ( <s> bind index </s> ) ; if ( <s> value </s> == null ) return null ; if ( <s> value </s> == <s> byte buffer util </s> . <s> unset byte buffer </s> ) return <s> unset value </s> ; return <s> value </s> . <s> from serialized </s> ( <s> value </s> , ( <s> map type </s> ) <s> receiver </s> . <s> type </s> , <s> options </s> . <s> get protocol version </s> ( ) ) ; } _eos_
+bind _eos_
+get _eos_ _eos_
+
+public <s> list </s> < <s> column metadata </s> . <s> raw </s> > ( ) { return <s> entities </s> ; } _eos_
+get entities _eos_
+get entities _eos_
+
+public <s> list </s> < ? extends <s> term </s> . <s> raw </s> > ( ) { assert <s> relation type </s> == <s> operator </s> . <s> in </s> ; return <s> in values </s> ; } _eos_
+get in values _eos_
+get in values _eos_
+
+public <s> relation </s> ( <s> column metadata </s> . <t> <s> raw </s> <s> from </s> </t> , <s> column metadata </s> . <t> <s> raw </s> <s> to </s> </t> ) { if ( ! <s> entities </s> . <s> contains </s> ( <s> from </s> ) ) return this ; <s> list </s> < <s> column metadata </s> . <s> raw </s> > <s> new entities </s> = <s> entities </s> . <s> stream </s> ( ) . <s> map </s> ( <s> e </s> -> <s> e </s> . <s> equals </s> ( <s> from </s> ) ? <s> to </s> : <s> e </s> ) . <s> collect </s> ( <s> collectors </s> . <s> to list </s> ( ) ) ; return new <s> multi column relation </s> ( <s> new entities </s> , <s> operator </s> ( ) , <s> values or marker </s> , <s> in values </s> , <s> in marker </s> ) ; } _eos_
+rename identifier _eos_
+with _eos_ _eos_
+
+private ( <t> int <s> page size </s> </t> , <t> <s> paging state </s> <s> state </s> </t> , <t> <s> consistency level </s> <s> serial consistency </s> </t> , <t> long <s> timestamp </s> </t> , <t> <s> string </s> <s> keyspace </s> </t> ) { this . <s> page size </s> = <s> page size </s> ; this . <s> state </s> = <s> state </s> ; this . <s> serial consistency </s> = <s> serial consistency </s> == null ? <s> consistency level </s> . <s> serial </s> : <s> serial consistency </s> ; this . <s> timestamp </s> = <s> timestamp </s> ; this . <s> keyspace </s> = <s> keyspace </s> ; } _eos_
+specific options _eos_
+_eos_ _eos_ _eos_
+
+public <s> consistency level </s> ( ) { return <s> wrapped </s> . <s> get consistency </s> ( ) ; } _eos_
+get consistency _eos_
+get consistency _eos_
+
+@ <s> override </s> public <s> query options </s> ( <t> <s> list </s> < <s> column specification </s> > <s> specs </s> </t> ) { super . <s> prepare </s> ( <s> specs </s> ) ; <s> ordered values </s> = new <s> array list </s> < > ( <s> specs </s> . <s> size </s> ( ) ) ; for ( <t> int <s> i </s> </t> = 0 ; <s> i </s> < <s> specs </s> . <s> size </s> ( ) ; <s> i </s> ++ ) { <t> <s> string </s> <s> name </s> </t> = <s> specs </s> . <s> get </s> ( <s> i </s> ) . <s> name </s> . <s> to string </s> ( ) ; for ( <t> int <s> j </s> </t> = 0 ; <s> j </s> < <s> names </s> . <s> size </s> ( ) ; <s> j </s> ++ ) { if ( <s> name </s> . <s> equals </s> ( <s> names </s> . <s> get </s> ( <s> j </s> ) ) ) { <s> ordered values </s> . <s> add </s> ( <s> wrapped </s> . <s> get values </s> ( ) . <s> get </s> ( <s> j </s> ) ) ; break ; } } } return this ; } _eos_
+prepare _eos_
+prepare _eos_
+
+@ <s> override </s> public <s> string </s> ( ) { return <s> to string builder </s> . <s> reflection to string </s> ( this , <s> to string style </s> . <s> short prefix style </s> ) ; } _eos_
+to string _eos_
+to string _eos_
+
+private static <s> md5 digest </s> ( <t> <s> string </s> <s> query string </s> </t> , <t> <s> string </s> <s> keyspace </s> </t> ) { <t> <s> string </s> <s> to hash </s> </t> = <s> keyspace </s> == null ? <s> query string </s> : <s> keyspace </s> + <s> query string </s> ; return <s> md5 digest </s> . <s> compute </s> ( <s> to hash </s> ) ; } _eos_
+compute id _eos_
+get digest digest _eos_
+
+public static <s> untyped result set </s> ( <t> <s> string </s> <s> query </s> </t> , <t> int <s> page size </s> </t> , <s> object </s> ... <s> values </s> ) { <s> parsed statement </s> . <t> <s> prepared </s> <s> prepared </s> </t> = <s> prepare internal </s> ( <s> query </s> ) ; if ( ! ( <s> prepared </s> . <s> statement </s> instanceof <s> select statement </s> ) ) throw new <s> illegal argument exception </s> ( <s> " only _unk ts can be paged" </s> ) ; <t> <s> select statement </s> <s> select </s> </t> = ( <s> select statement </s> ) <s> prepared </s> . <s> statement </s> ; <t> <s> query pager </s> <s> pager </s> </t> = <s> select </s> . <s> get query </s> ( <s> make internal options </s> ( <s> prepared </s> , <s> values </s> ) , <s> fb utilities </s> . <s> now in seconds </s> ( ) ) . <s> get pager </s> ( null , <s> protocol version </s> . <s> current </s> ) ; return <s> untyped result set </s> . <s> create </s> ( <s> select </s> , <s> pager </s> , <s> page size </s> ) ; } _eos_
+execute internal with paging _eos_
+get internal _eos_
+
+public void ( <t> <s> string </s> <s> ks name </s> </t> , <t> <s> string </s> <s> function name </s> </t> , <s> list </s> < <s> abstract type </s> < ? >> <s> arg types </s> ) { <s> remove invalid prepared statements for function </s> ( <s> ks name </s> , <s> function name </s> ) ; } _eos_
+on alter function _eos_
+remove function _eos_ function _eos_
+
+public void ( <t> <s> string </s> <s> ks name </s> </t> , <t> <s> string </s> <s> function name </s> </t> , <s> list </s> < <s> abstract type </s> < ? >> <s> arg types </s> ) { <s> remove invalid prepared statements for function </s> ( <s> ks name </s> , <s> function name </s> ) ; } _eos_
+on drop function _eos_
+remove function _eos_ function _eos_
+
+public static <s> untyped result set </s> ( <t> <s> string </s> <s> query </s> </t> , <t> <s> partition iterator </s> <s> partitions </s> </t> ) { try ( <t> <s> partition iterator </s> <s> iter </s> </t> = <s> partitions </s> ) { <t> <s> select statement </s> <s> ss </s> </t> = ( <s> select statement </s> ) <s> get statement </s> ( <s> query </s> , null ) . <s> statement </s> ; <t> <s> result set </s> <s> cql rows </s> </t> = <s> ss </s> . <s> process </s> ( <s> iter </s> , <s> fb utilities </s> . <s> now in seconds </s> ( ) ) ; return <s> untyped result set </s> . <s> create </s> ( <s> cql rows </s> ) ; } } _eos_
+resultify _eos_
+get _eos_ _eos_
+
+public boolean ( ) { return false ; } _eos_
+on token _eos_
+is _eos_ _eos_
+
+@ <s> override </s> public <s> string </s> ( ) { return <s> to string builder </s> . <s> reflection to string </s> ( this , <s> to string style </s> . <s> short prefix style </s> ) ; } _eos_
+to string _eos_
+to string _eos_
+
+public ( <t> <s> list </s> < <s> column metadata </s> > <s> column defs </s> </t> ) { super ( <s> column defs </s> ) ; } _eos_
+in restriction _eos_
+column column _eos_ _eos_
+
+private <s> list </s> < <s> byte buffer </s> > ( <t> <s> bound </s> <s> b </s> </t> , <t> <s> query options </s> <s> options </s> </t> ) { if ( ! <s> slice </s> . <s> has bound </s> ( <s> b </s> ) ) return <s> collections </s> . <s> empty list </s> ( ) ; <t> <s> terminal </s> <s> terminal </s> </t> = <s> slice </s> . <s> bound </s> ( <s> b </s> ) . <s> bind </s> ( <s> options </s> ) ; if ( <s> terminal </s> instanceof <s> tuples </s> . <s> value </s> ) { return ( ( <s> tuples </s> . <s> value </s> ) <s> terminal </s> ) . <s> get elements </s> ( ) ; } return <s> collections </s> . <s> singleton list </s> ( <s> terminal </s> . <s> get </s> ( <s> options </s> . <s> get protocol version </s> ( ) ) ) ; } _eos_
+component bounds _eos_
+get _eos_ _eos_
+
+@ <s> override </s> public boolean ( <t> <s> bound </s> <s> bound </s> </t> ) { return <s> slice </s> . <s> is inclusive </s> ( <s> bound </s> ) ; } _eos_
+is inclusive _eos_
+is bound _eos_
+
+@ <s> override </s> public boolean ( ) { return true ; } _eos_
+is not null _eos_
+is _eos_ _eos_
+
+@ <s> override </s> public <s> string </s> ( ) { return <s> to string builder </s> . <s> reflection to string </s> ( this , <s> to string style </s> . <s> short prefix style </s> ) ; } _eos_
+to string _eos_
+to string _eos_
+
+@ <s> override </s> public final boolean ( <t> <s> secondary index manager </s> <s> index manager </s> </t> ) { for ( <t> <s> restriction </s> <s> restriction </s> </t> : <s> restrictions </s> . <s> values </s> ( ) ) { if ( <s> restriction </s> . <s> has supporting index </s> ( <s> index manager </s> ) ) return true ; } return false ; } _eos_
+has supporting index _eos_
+has reversed index _eos_
+
+public boolean ( <t> <s> secondary index manager </s> <s> index manager </s> </t> ) { return <s> restrictions </s> . <s> has supporting index </s> ( <s> index manager </s> ) ; } _eos_
+has supporting index _eos_
+has supports index _eos_
+
+public ( <t> <s> column metadata </s> <s> column def </s> </t> , <t> <s> list </s> < <s> term </s> > <s> values </s> </t> ) { super ( <s> column def </s> ) ; this . <s> values </s> = <s> values </s> ; } _eos_
+in restriction with values _eos_
+column _eos_ _eos_
+
+public ( <t> <s> column metadata </s> <s> column def </s> </t> ) { super ( <s> column def </s> ) ; } _eos_
+is not null restriction _eos_
+column column _eos_ _eos_
+
+@ <s> override </s> public boolean ( ) { return true ; } _eos_
+is like _eos_
+is _eos_ _eos_
+
+@ <s> override </s> public boolean ( ) { return true ; } _eos_
+is not null _eos_
+is _eos_ _eos_
+
+public int ( ) { return <s> keys </s> . <s> size </s> ( ) ; } _eos_
+number of keys _eos_
+get keys _eos_
+
+@ <s> override </s> <s> multi column restriction </s> ( ) { throw new <s> unsupported operation exception </s> ( ) ; } _eos_
+to multi column restriction _eos_
+get column _eos_ _eos_
+
+public static <s> statement restrictions </s> <s> empty </s> ( <t> <s> statement type </s> <s> type </s> </t> , <t> <s> table metadata </s> <s> table </s> </t> ) { return new <s> statement restrictions </s> ( <s> type </s> , <s> table </s> , false ) ; } _eos_
+empty _eos_
+empty _eos_
+
+private <s> restrictions </s> ( <s> column metadata </s> . <t> <s> kind </s> <s> kind </s> </t> ) { switch ( <s> kind </s> ) { case <s> partition key </s> : return <s> partition key restrictions </s> ; case <s> clustering </s> : return <s> clustering columns restrictions </s> ; default : return <s> non primary key restrictions </s> ; } } _eos_
+get restrictions _eos_
+get primary key _eos_
+
+private void ( <t> <s> list </s> < <s> custom index expression </s> > <s> expressions </s> </t> , <t> <s> variable specifications </s> <s> bound names </s> </t> , <t> <s> secondary index manager </s> <s> index manager </s> </t> ) { if ( <s> expressions </s> . <s> size </s> ( ) > 1 ) throw new <s> invalid request exception </s> ( <s> index restrictions </s> . <s> multiple expressions </s> ) ; <t> <s> custom index expression </s> <s> expression </s> </t> = <s> expressions </s> . <s> get </s> ( 0 ) ; <t> <s> cf name </s> <s> cf name </s> </t> = <s> expression </s> . <s> target index </s> . <s> get cf name </s> ( ) ; if ( <s> cf name </s> . <s> has keyspace </s> ( ) && ! <s> expression </s> . <s> target index </s> . <s> get keyspace </s> ( ) . <s> equals </s> ( <s> table </s> . <s> keyspace </s> ) ) throw <s> index restrictions </s> . <s> invalid index </s> ( <s> expression </s> . <s> target index </s> , <s> table </s> ) ; if ( <s> cf name </s> . <s> get column family </s> ( ) != null && ! <s> cf name </s> . <s> get column family </s> ( ) . <s> equals </s> ( <s> table </s> . <s> name </s> ) ) throw <s> index restrictions </s> . <s> invalid index </s> ( <s> expression </s> . <s> target index </s> , <s> table </s> ) ; if ( ! <s> table </s> . <s> indexes </s> . <s> has </s> ( <s> expression </s> . <s> target index </s> . <s> get idx </s> ( ) ) ) throw <s> index restrictions </s> . <s> index not found </s> ( <s> expression </s> . <s> target index </s> , <s> table </s> ) ; <t> <s> index </s> <s> index </s> </t> = <s> index manager </s> . <s> get index </s> ( <s> table </s> . <s> indexes </s> . <s> get </s> ( <s> expression </s> . <s> target index </s> . <s> get idx </s> ( ) ) . <s> get </s> ( ) ) ; if ( ! <s> index </s> . <s> get index metadata </s> ( ) . <s> is custom </s> ( ) ) throw <s> index restrictions </s> . <s> non custom index in expression </s> ( <s> expression </s> . <s> target index </s> ) ; <s> abstract type </s> < ? > <s> expression type </s> = <s> index </s> . <s> custom expression value type </s> ( ) ; if ( <s> expression type </s> == null ) throw <s> index restrictions </s> . <s> custom expression not supported </s> ( <s> expression </s> . <s> target index </s> ) ; <s> expression </s> . <s> prepare value </s> ( <s> table </s> , <s> expression type </s> , <s> bound names </s> ) ; <s> filter restrictions </s> . <s> add </s> ( <s> expression </s> ) ; } _eos_
+process custom index expressions _eos_
+add _eos_ _eos_
+
+public void ( <t> <s> list </s> < <s> function </s> > <s> functions </s> </t> ) { if ( <s> has bound </s> ( <s> bound </s> . <s> start </s> ) ) <s> bound </s> ( <s> bound </s> . <s> start </s> ) . <s> add functions to </s> ( <s> functions </s> ) ; if ( <s> has bound </s> ( <s> bound </s> . <s> end </s> ) ) <s> bound </s> ( <s> bound </s> . <s> end </s> ) . <s> add functions to </s> ( <s> functions </s> ) ; } _eos_
+add functions to _eos_
+add functions to _eos_
+
+public boolean ( <t> <s> bound </s> <s> b </s> </t> ) { return <s> bounds[b </s> . <s> idx] </s> == null || <s> bound inclusive[b </s> . <s> idx] </s> ; } _eos_
+is inclusive _eos_
+is _eos_ _eos_
+
+@ <s> override </s> public boolean ( ) { return <s> restrictions </s> . <s> is empty </s> ( ) ; } _eos_
+is empty _eos_
+is empty _eos_
+
+@ <s> override </s> public <s> set </s> < <s> restriction </s> > ( <t> <s> column metadata </s> <s> column def </s> </t> ) { return <s> collections </s> . <s> singleton </s> ( this ) ; } _eos_
+get restrictions _eos_
+get _eos_ _eos_
+
+@ <s> override </s> public boolean ( <t> <s> bound </s> <s> b </s> </t> ) { return <s> slice </s> . <s> has bound </s> ( <s> b </s> ) ; } _eos_
+has bound _eos_
+has bound _eos_
+
+private ( <t> <s> enum set </s> < <s> flag </s> > <s> flags </s> </t> , <t> <s> list </s> < <s> column specification </s> > <s> names </s> </t> , <t> <s> short[] </s> <s> partition key bind indexes </s> </t> ) { this . <s> flags </s> = <s> flags </s> ; this . <s> names </s> = <s> names </s> ; this . <s> partition key bind indexes </s> = <s> partition key bind indexes </s> ; } _eos_
+prepared metadata _eos_
+column _eos_ _eos_
+
+public void ( <t> <s> byte buffer </s> <s> value </s> </t> ) { if ( <s> rows </s> . <s> is empty </s> ( ) || <s> last row </s> ( ) . <s> size </s> ( ) == <s> metadata </s> . <s> value count </s> ( ) ) <s> rows </s> . <s> add </s> ( new <s> array list </s> < <s> byte buffer </s> > ( <s> metadata </s> . <s> value count </s> ( ) ) ) ; <s> last row </s> ( ) . <s> add </s> ( <s> value </s> ) ; } _eos_
+add column value _eos_
+add _eos_ _eos_
+
+public void ( <t> <s> list </s> < <s> byte buffer </s> > <s> row </s> </t> ) { assert <s> row </s> . <s> size </s> ( ) == <s> metadata </s> . <s> value count </s> ( ) ; <s> rows </s> . <s> add </s> ( <s> row </s> ) ; } _eos_
+add row _eos_
+add row _eos_
+
+@ <s> visible for testing </s> public int ( ) { return <s> column count </s> ; } _eos_
+get column count _eos_
+get column count _eos_
+
+public boolean ( ) { return <s> name </s> != null ; } _eos_
+has name _eos_
+is name _eos_
+
+protected ( <t> <s> t </s> <s> fun </s> </t> , <t> <s> list </s> < <s> selector </s> > <s> arg selectors </s> </t> ) { this . <s> fun </s> = <s> fun </s> ; this . <s> arg selectors </s> = <s> arg selectors </s> ; this . <s> args </s> = <s> arrays </s> . <s> as list </s> ( new <s> byte _unk selectors </s> . <s> size </s> ( ) <s> ] </s> ) ; } _eos_
+abstract function selector _eos_
+abstract _eos_ _eos_
+
+protected <s> abstract type </s> < ? > ( ) { return <s> fun </s> . <s> return type </s> ( ) ; } _eos_
+get return type _eos_
+get type type _eos_
+
+public void ( <t> <s> protocol version </s> <s> protocol version </s> </t> , <t> <s> result set builder </s> <s> rs </s> </t> ) throws <s> invalid request exception </s> { for ( <t> int <s> i </s> </t> = 0 , <s> m </s> = <s> arg selectors </s> . <s> size </s> ( ) ; <s> i </s> < <s> m </s> ; <s> i </s> ++ ) { <t> <s> selector </s> <s> s </s> </t> = <s> arg selectors </s> . <s> get </s> ( <s> i </s> ) ; <s> s </s> . <s> add input </s> ( <s> protocol version </s> , <s> rs </s> ) ; <s> set arg </s> ( <s> i </s> , <s> s </s> . <s> get output </s> ( <s> protocol version </s> ) ) ; <s> s </s> . <s> reset </s> ( ) ; } this . <s> aggregate </s> . <s> add input </s> ( <s> protocol version </s> , <s> args </s> ( ) ) ; } _eos_
+add input _eos_
+add input _eos_
+
+public ( <t> <s> column filter </s> <s> column filter </s> </t> ) { this . <s> column filter </s> = <s> column filter </s> ; } _eos_
+precomputed column filter _eos_
+column filter _eos_ _eos_
+
+private ( <t> <s> selector </s> <s> selected </s> </t> , <t> <s> byte buffer </s> <s> from </s> </t> , <t> <s> byte buffer </s> <s> to </s> </t> ) { super ( <s> selected </s> ) ; assert <s> selected </s> . <s> get type </s> ( ) instanceof <s> map type </s> || <s> selected </s> . <s> get type </s> ( ) instanceof <s> set type </s> : <s> "this shouldn' t have passed validation in _unk </s> ; assert <s> from </s> != null && <s> to </s> != null : <s> " we can have unset _unk but not nulls" </s> ; this . <s> type </s> = ( <s> collection type </s> < ? > ) <s> selected </s> . <s> get type </s> ( ) ; this . <s> from </s> = <s> from </s> ; this . <s> to </s> = <s> to </s> ; } _eos_
+slice selector _eos_
+test _eos_ _eos_ _eos_
+
+public <s> byte buffer </s> ( <t> <s> protocol version </s> <s> protocol version </s> </t> ) throws <s> invalid request exception </s> { <t> <s> byte buffer </s> <s> value </s> </t> = <s> selected </s> . <s> get output </s> ( <s> protocol version </s> ) ; return <s> value </s> == null ? null : <s> extract selection </s> ( <s> value </s> ) ; } _eos_
+get output _eos_
+get _eos_ _eos_
+
+protected <s> abstract type </s> < ? > ( ) { return <s> type </s> ; } _eos_
+get return type _eos_
+get type _eos_
+
+public boolean ( ) { return <s> factory </s> . <s> is aggregate selector factory </s> ( ) ; } _eos_
+is aggregate selector factory _eos_
+is aggregate selector factory _eos_
+
+private static boolean ( <t> <s> byte buffer </s> <s> bb </s> </t> ) { return <s> bb </s> == <s> byte buffer util </s> . <s> unset byte buffer </s> ; } _eos_
+is unset _eos_
+is byte _eos_ _eos_
+
+private static <s> abstract type </s> < ? > ( <s> collection type </s> < ? > <s> type </s> ) { return <s> type </s> . <s> name comparator </s> ( ) ; } _eos_
+key type _eos_
+get _eos_ _eos_
+
+public void ( <t> <s> protocol version </s> <s> protocol version </s> </t> , <t> <s> result set builder </s> <s> rs </s> </t> ) throws <s> invalid request exception </s> { <s> selected </s> . <s> add input </s> ( <s> protocol version </s> , <s> rs </s> ) ; } _eos_
+add input _eos_
+add input _eos_
+
+public <s> abstract type </s> < ? > ( ) { return <s> type </s> . <s> field type </s> ( <s> field </s> ) ; } _eos_
+get type _eos_
+get type _eos_
+
+public boolean ( ) { return <s> factory </s> . <s> is aggregate selector factory </s> ( ) ; } _eos_
+is aggregate selector factory _eos_
+is aggregate selector factory _eos_
+
+@ <s> override </s> public boolean ( ) { return <s> delegate </s> ( ) . <s> is ttl selector factory </s> ( ) ; } _eos_
+is ttl selector factory _eos_
+is ttl selector factory _eos_
+
+public void ( <t> <s> protocol version </s> <s> protocol version </s> </t> , <t> <s> result set builder </s> <s> rs </s> </t> ) throws <s> invalid request exception </s> { for ( <t> int <s> i </s> </t> = 0 , <s> m </s> = <s> arg selectors </s> . <s> size </s> ( ) ; <s> i </s> < <s> m </s> ; <s> i </s> ++ ) { <t> <s> selector </s> <s> s </s> </t> = <s> arg selectors </s> . <s> get </s> ( <s> i </s> ) ; <s> s </s> . <s> add input </s> ( <s> protocol version </s> , <s> rs </s> ) ; } } _eos_
+add input _eos_
+add input _eos_
+
+private <s> list </s> < <s> pair </s> < <s> selectable </s> , <s> selectable </s> >> ( <t> <s> table metadata </s> <s> cfm </s> </t> ) { return <s> raws </s> . <s> stream </s> ( ) . <s> map </s> ( <s> p </s> -> <s> pair </s> . <s> create </s> ( <s> p </s> . <s> left </s> . <s> prepare </s> ( <s> cfm </s> ) , <s> p </s> . <s> right </s> . <s> prepare </s> ( <s> cfm </s> ) ) ) . <s> collect </s> ( <s> collectors </s> . <s> to list </s> ( ) ) ; } _eos_
+get map entries _eos_
+prepare _eos_ _eos_
+
+private <s> factory </s> ( <t> <s> table metadata </s> <s> cfm </s> </t> , <t> <s> list </s> < <s> column metadata </s> > <s> defs </s> </t> , <t> <s> variable specifications </s> <s> bound names </s> </t> , <s> abstract type </s> < ? > <s> type </s> ) { <s> map type </s> < ? , ? > <s> map type </s> = ( <s> map type </s> < ? , ? > ) <s> type </s> ; if ( <s> map type </s> . <s> get keys type </s> ( ) == <s> duration type </s> . <s> instance </s> ) throw <s> invalid request </s> ( <s> " durations are not allowed as map keys: %s" </s> , <s> map type </s> . <s> as cql3 type </s> ( ) ) ; return <s> map selector </s> . <s> new factory </s> ( <s> type </s> , <s> get map entries </s> ( <s> cfm </s> ) . <s> stream </s> ( ) . <s> map </s> ( <s> p </s> -> <s> pair </s> . <s> create </s> ( <s> p </s> . <s> left </s> . <s> new selector factory </s> ( <s> cfm </s> , <s> map type </s> . <s> get keys type </s> ( ) , <s> defs </s> , <s> bound names </s> ) , <s> p </s> . <s> right </s> . <s> new selector factory </s> ( <s> cfm </s> , <s> map type </s> . <s> get values type </s> ( ) , <s> defs </s> , <s> bound names </s> ) ) ) . <s> collect </s> ( <s> collectors </s> . <s> to list </s> ( ) ) ) ; } _eos_
+new map selector factory _eos_
+new factory _eos_
+
+@ <s> override </s> public <s> string </s> ( ) { return <s> string </s> . <s> format </s> ( _unk , <s> selected </s> , <s> from </s> == null ? "" : <s> from </s> , <s> to </s> == null ? "" : <s> to </s> ) ; } _eos_
+to string _eos_
+to string _eos_
+
+public ( <t> <s> table metadata </s> <s> table </s> </t> , <t> <s> list </s> < <s> column metadata </s> > <s> columns </s> </t> , <t> <s> set </s> < <s> column metadata </s> > <s> ordering columns </s> </t> , <t> <s> set </s> < <s> column metadata </s> > <s> non pk restricted columns </s> </t> , <t> <s> selection column mapping </s> <s> metadata </s> </t> , <t> <s> selector factories </s> <s> factories </s> </t> , <t> boolean <s> is json </s> </t> ) { super ( <s> table </s> , <s> columns </s> , <s> ordering columns </s> , <s> metadata </s> , <s> column filter factory </s> . <s> from selector factories </s> ( <s> table </s> , <s> factories </s> , <s> ordering columns </s> , <s> non pk restricted columns </s> ) , <s> is json </s> ) ; this . <s> factories </s> = <s> factories </s> ; this . <s> collect timestamps </s> = <s> factories </s> . <s> contains writetime selector factory </s> ( ) ; this . <s> collect tt ls </s> = <s> factories </s> . <s> contains ttl selector factory </s> ( ) ; ; for ( <t> <s> column metadata </s> <s> ordering column </s> </t> : <s> ordering columns </s> ) { <s> factories </s> . <s> add selector for ordering </s> ( <s> ordering column </s> , <s> get column index </s> ( <s> ordering column </s> ) ) ; } } _eos_
+selection with processing _eos_
+table comparator _eos_ _eos_
+
+public boolean ( ) { return <s> factories </s> . <s> does aggregation </s> ( ) ; } _eos_
+is aggregate _eos_
+is _eos_ _eos_
+
+private static boolean ( <t> <s> list </s> < <s> selectable </s> > <s> selectables </s> </t> ) { for ( <t> <s> selectable </s> <s> selectable </s> </t> : <s> selectables </s> ) { if ( <s> selectable </s> . <s> processes selection </s> ( ) ) return true ; } return false ; } _eos_
+processes selection _eos_
+is selection _eos_
+
+public static <s> selection </s> ( <t> <s> table metadata </s> <s> table </s> </t> , <t> boolean <s> is json </s> </t> ) { <t> <s> list </s> < <s> column metadata </s> > <s> all </s> </t> = new <s> array list </s> < > ( <s> table </s> . <s> columns </s> ( ) . <s> size </s> ( ) ) ; <s> iterators </s> . <s> add all </s> ( <s> all </s> , <s> table </s> . <s> all columns in select order </s> ( ) ) ; return new <s> simple selection </s> ( <s> table </s> , <s> all </s> , <s> collections </s> . <s> empty set </s> ( ) , true , <s> is json </s> ) ; } _eos_
+wildcard _eos_
+get _eos_ _eos_
+
+public <s> string </s> ( ) { return <s> column mappings </s> . <s> as map </s> ( ) . <s> entry set </s> ( ) . <s> stream </s> ( ) . <s> map </s> ( <s> entry </s> -> <s> entry </s> . <s> get value </s> ( ) . <s> stream </s> ( ) . <s> map </s> ( <s> col def </s> -> <s> col def </s> . <s> name </s> . <s> to string </s> ( ) ) . <s> collect </s> ( <s> collectors </s> . <s> joining </s> ( <s> ", " </s> , <s> entry </s> . <s> get key </s> ( ) . <s> name </s> . <s> to string </s> ( ) + _unk , "]" ) ) ) . <s> collect </s> ( <s> collectors </s> . <s> joining </s> ( <s> ", " </s> , <s> column specifications </s> . <s> stream </s> ( ) . <s> map </s> ( <s> col spec </s> -> <s> col spec </s> . <s> name </s> . <s> to string </s> ( ) ) . <s> collect </s> ( <s> collectors </s> . <s> joining </s> ( <s> ", " </s> , <s> "{ _unk </s> , <s> "], _unk </s> ) ) , <s> "} }" </s> ) ) ; } _eos_
+to string _eos_
+to string _eos_ _eos_
+
+public <s> column specification </s> ( <t> <s> table metadata </s> <s> table </s> </t> ) { return new <s> column specification </s> ( <s> table </s> . <s> keyspace </s> , <s> table </s> . <s> name </s> , new <s> column identifier </s> ( <s> get column name </s> ( ) , true ) , <s> get return type </s> ( ) ) ; } _eos_
+get column specification _eos_
+with column _eos_
+
+public boolean ( ) { return <s> contains ttl factory </s> ; } _eos_
+contains ttl selector factory _eos_
+is contains ttl _eos_
+
+private ( <t> <s> column metadata </s> <s> column </s> </t> , <t> int <s> idx </s> </t> ) { this . <s> column </s> = <s> column </s> ; this . <s> idx </s> = <s> idx </s> ; } _eos_
+simple selector _eos_
+column _eos_ _eos_
+
+private ( <t> int <s> idx </s> </t> , <t> <s> column metadata </s> <s> def </s> </t> ) { this . <s> idx </s> = <s> idx </s> ; this . <s> column </s> = <s> def </s> ; } _eos_
+simple selector factory _eos_
+column _eos_ _eos_
+
+protected void ( <t> <s> selection column mapping </s> <s> mapping </s> </t> , <t> <s> column specification </s> <s> result column </s> </t> ) { <s> mapping </s> . <s> add mapping </s> ( <s> result column </s> , ( <s> column metadata </s> ) null ) ; } _eos_
+add column mapping _eos_
+add mapping _eos_
+
+public <s> abstract type </s> < ? > ( ) { return <s> type </s> ; } _eos_
+get type _eos_
+get type _eos_
+
+public static <s> factory </s> ( final <s> abstract type </s> < ? > <s> type </s> , final <t> <s> selector factories </s> <s> factories </s> </t> ) { return new <s> collection factory </s> ( <s> type </s> , <s> factories </s> ) { protected <s> string </s> <s> get column name </s> ( ) { return <s> tuples </s> . <s> tuple to string </s> ( <s> factories </s> , <s> factory </s> :: <s> get column name </s> ) ; } public <s> selector </s> <s> new instance </s> ( final <t> <s> query options </s> <s> options </s> </t> ) { return new <s> tuple selector </s> ( <s> type </s> , <s> factories </s> . <s> new instances </s> ( <s> options </s> ) ) ; } } ; } _eos_
+new factory _eos_
+new instance _eos_
+Total Accuracy 0.6456790123456791Modified Accuracy 0.47453703703703703
